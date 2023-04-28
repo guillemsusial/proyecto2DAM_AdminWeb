@@ -1,0 +1,40 @@
+{
+  "name": "proyecto2dam_adminweb",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "prettier": "prettier -write .",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guillemsusial/proyecto2DAM_AdminWeb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guillemsusial/proyecto2DAM_AdminWeb/issues"
+  },
+  "homepage": "https://github.com/guillemsusial/proyecto2DAM_AdminWeb#readme",
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/react": "^2.6.0",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "framer-motion": "^10.12.4",
+    "next": "^13.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-next": "^13.3.1",
+    "prettier": "^2.8.8"
+  },
+  "description": ""
+}

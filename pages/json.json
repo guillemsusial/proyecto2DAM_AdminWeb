@@ -1,0 +1,57 @@
+{
+  "document": {
+    "_id": "6442d885242a006739c5e480",
+    "nombre": "Seat Ibiza 1.9 TDI",
+    "datos_identificativos": {
+      "pais_de_origen": "España",
+      "fabricante": "Seat",
+      "modelo": "Ibiza",
+      "generacion": "2a generación",
+      "serie": "Ibiza",
+      "años_de_fabricacion": {
+        "año_de_inicio": 1999,
+        "año_de_finalizacion": 2002
+      },
+      "clase": "Subcompacto",
+      "tipo_de_cuerpo": "Hatchback",
+      "numero_de_puertas": "3/5",
+      "traccion": "FWD (tracción delantera)"
+    },
+    "especificaciones_del_motor": {
+      "fabricante_del_motor": "Volkswagen Group",//
+      "tipo_de_motor": "TDI (Turbo Diésel Inyección)",
+      "disposicion_de_los_cilindros": "4 cilindros en linea",
+      "tipo_de_combustible": "Diésel",
+      "sistema_de_inyeccion": "Inyección directa",
+      "tipo_de_aspiracion": "Turbocargador",
+      "valvulas_por_cilindro": 2,
+      "valvulas_totales": 8,
+      "potencia": { "unidad_de_potencia": "hp", "potencia": 89, "rpm": 3750 },
+      "par": { "unidad_de_par": "Nm", "par": 210, "rpm": 1900 },
+      "relacion_peso/potencia": "12.3 kg/hp"
+    },
+    "dimensiones": {
+      "unidad_de_distancia": "mm",
+      "longitud": 3876,
+      "anchura": 1640,
+      "altura": 1422,
+      "separacion_de_las_ruedas": 2443,
+      "combustible": {
+        "unidad_del_combustible": "l",
+        "capacidad_de_combustible": 45
+      }
+    },
+    "pesos": { "unidad_del_peso": "kg", "peso_en_vacio": 1095 },
+    "especificaciones_de_la_transmision": {
+      "tipo_de_transmision": "Manual",
+      "numero_de_marchas": 5
+    },
+    "velocidades": {
+      "velocidad_maxima": {
+        "velocidad_maxima": 180,
+        "unidad_de_velocidad": "km/h"
+      },
+      "aceleracion": { "0-100_km/h": 12.1, "unidad_de_aceleracion": "segundos" }
+    }
+  }
+}
