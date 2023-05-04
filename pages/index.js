@@ -1,19 +1,23 @@
 import Layout from '../components/layouts/article'
-import React from 'react'
+import React, { useState } from 'react'
 import DatosIdentificativos from '../components/DatosIdentificativos'
-import EspecificacionesDelMotor from '../components/EspecificacionesDelMotor'
-import Dimensiones from '../components/Dimensiones'
-import Pesos from '../components/Pesos'
+// import EspecificacionesDelMotor from '../components/EspecificacionesDelMotor'
+// import Dimensiones from '../components/Dimensiones'
+// import Pesos from '../components/Pesos'
+import { Text } from '@chakra-ui/react'
 function Index() {
-  // const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
+  //Creamos el estado del formulario (por verificar , es decir False)
+  const [Dindentidad, setDidentidad] = useState(false)
 
+  // const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
+  const data = e => {
+    console.log(JSON.stringify(e))
+  }
   // const {
   //   register,
   //   handleSubmit,
   //   formState: { errors }
   // } = useForm()
-
-  // //console.log(errors)
 
   // const onSubmit = values => {
   //   console.log(values)
@@ -21,10 +25,22 @@ function Index() {
 
   return (
     <Layout>
-      <DatosIdentificativos />
-      <EspecificacionesDelMotor />
+      <DatosIdentificativos
+        verified={Dindentidad}
+        onVerified={datos_identificativos => {
+          setDidentidad(!Dindentidad)
+          if (!(datos_identificativos.type === 'click')) {
+            datos_identificativos = {
+              datos_identificativos
+            }
+            data(datos_identificativos)
+          }
+        }}
+      />
+
+      {/* <EspecificacionesDelMotor />
       <Dimensiones />
-      <Pesos/>   
+      <Pesos /> */}
       {/* ----------------------Especificaciones de la transmision---------------------------- */}
       {/* <Box
         borderRadius={'lg'}
