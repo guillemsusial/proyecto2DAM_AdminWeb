@@ -1,18 +1,20 @@
 import Layout from '../components/layouts/article'
 import React, { useState } from 'react'
-import DatosIdentificativos from '../components/DatosIdentificativos'
-// import EspecificacionesDelMotor from '../components/EspecificacionesDelMotor'
-// import Dimensiones from '../components/Dimensiones'
-// import Pesos from '../components/Pesos'
-import { Text } from '@chakra-ui/react'
+import DatosIdentificativos from '../components/datosIdentificativos'
+import EspecificacionesDelMotor from '../components/EspecificacionesDelMotor'
+import Pesos from '../components/Pesos'
+import Dimensiones from '../components/Dimensiones'
+
 function Index() {
   //Creamos el estado del formulario (por verificar , es decir False)
   const [Dindentidad, setDidentidad] = useState(false)
-
+  const [DespecificacionesMotor, setDespecificacionesMotor] = useState(false)
+  const [Ddimensiones, setDdimensiones] = useState(false)
   // const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
   const data = e => {
     console.log(JSON.stringify(e))
   }
+
   // const {
   //   register,
   //   handleSubmit,
@@ -38,9 +40,31 @@ function Index() {
         }}
       />
 
-      {/* <EspecificacionesDelMotor />
-      <Dimensiones />
-      <Pesos /> */}
+      <EspecificacionesDelMotor
+        verified={DespecificacionesMotor}
+        onVerified={especificaciones_del_motor => {
+          setDespecificacionesMotor(!DespecificacionesMotor)
+          if (!(especificaciones_del_motor.type === 'click')) {
+            especificaciones_del_motor = {
+              especificaciones_del_motor
+            }
+            data(especificaciones_del_motor)
+          }
+        }}
+      />
+      <Dimensiones
+        verified={Ddimensiones}
+        onVerified={dimensiones => {
+          setDdimensiones(!Ddimensiones)
+          if (!(dimensiones.type === 'click')) {
+            dimensiones = {
+              dimensiones
+            }
+            data(dimensiones)
+          }
+        }}
+      />
+      <Pesos />
       {/* ----------------------Especificaciones de la transmision---------------------------- */}
       {/* <Box
         borderRadius={'lg'}
