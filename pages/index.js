@@ -7,12 +7,12 @@ import Insert from '../components/insert'
 function Index() {
   return (
     <Layout>
-      <Box>
-        <Tabs variant="soft-rounded" colorScheme="green">
+      <Box mt={50}>
+        <Tabs isFitted variant="enclosed" colorScheme="green">
           <TabList>
-            <Tab>Insert</Tab>
-            <Tab>Edit</Tab>
-            <Tab>Delete</Tab>
+            <Tab _selected={{ color: 'white', bg: 'green.500' }}>Insert</Tab>
+            <Tab _selected={{ color: 'white', bg: 'yellow.500' }}>Edit</Tab>
+            <Tab _selected={{ color: 'white', bg: 'red.500' }}>Delete</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>

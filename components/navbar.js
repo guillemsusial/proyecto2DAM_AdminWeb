@@ -80,9 +80,7 @@ function Navbar(props) {
           flexGrow={1}
           mt={{ base: 4, nmd: 0 }}
         >
-          <LinkItem href={'/insert'} path={path}>
-            Insert
-          </LinkItem>
+          <LinkItem href={'/insert'} path={path}></LinkItem>
           {/* <LinkItem href={'/posts'} path={path}>
             Posts
           </LinkItem>

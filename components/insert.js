@@ -6,7 +6,8 @@ import Pesos from './CPanelComponets/Pesos'
 import Dimensiones from './CPanelComponets/Dimensiones'
 import EspecificacionesDeLaTransmision from './CPanelComponets/EspecificacionesDeLaTransmision'
 import Velocidades from './CPanelComponets/Velocidades'
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import ErrorModal from './errorModal'
 
 function Insert() {
   //Creamos el estado del formulario (por verificar , es decir False)
@@ -39,18 +40,23 @@ function Insert() {
       }
       data(event)
     }
-
-    // console.log('/*------------------*/')
-    // console.log('Didentidad :' + Dindentidad)
-    // console.log('DespecificacionesMotor :' + DespecificacionesMotor)
-    // console.log('Ddimensiones :' + Ddimensiones)
-    // console.log('Dpesos :' + Dpesos)
-    // console.log(
-    //   'DespecificacionesDeLaTransmision :' + DespecificacionesDeLaTransmision
-    // )
-    // console.log('Dvelocidades :' + Dvelocidades)
-    // console.log('/*------------------*/')
   }
+
+  //error modal
+  const OverlayTwo = () => (
+    <ModalOverlay
+      bg="none"
+      backdropFilter="auto"
+      backdropInvert="80%"
+      backdropBlur="2px"
+    />
+  )
+  //estados del Modal
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [overlay, setOverlay] = React.useState()
+
+  // cuando enviamos el formulario corroboramos que todos los formularios
+  // este verificados y enviamos el JSON a la base de datos
   const onSubmit = () => {
     if (
       Dindentidad &&
@@ -64,12 +70,23 @@ function Insert() {
       //final JSON
       console.log(FinalJson)
     } else {
-      window.alert('Faltan por verificar datos')
+      //error
+      setOverlay(<OverlayTwo />)
+      onOpen()
     }
   }
 
   return (
     <Layout>
+      {/* Modal */}
+      <ErrorModal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose()
+        }}
+        overlay={overlay}
+      />
+      {/* FORMS---------------------------- */}
       <DatosIdentificativos
         verified={Dindentidad}
         onVerified={data => {
@@ -113,6 +130,7 @@ function Insert() {
           verify(data, 'velocidades')
         }}
       />
+      {/*---------------------------- */}
       <Box align="center">
         {' '}
         <Button w={150} h={12} colorScheme="teal" size="lg" onClick={onSubmit}>
