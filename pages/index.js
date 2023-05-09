@@ -1,281 +1,127 @@
 import Layout from '../components/layouts/article'
 import React, { useState } from 'react'
-import DatosIdentificativos from '../components/datosIdentificativos'
-import EspecificacionesDelMotor from '../components/EspecificacionesDelMotor'
-import Pesos from '../components/Pesos'
-import Dimensiones from '../components/Dimensiones'
+import DatosIdentificativos from '../components/CPanelComponets/DatosIdentificativos'
+import EspecificacionesDelMotor from '../components/CPanelComponets/EspecificacionesDelMotor'
+import Pesos from '../components/CPanelComponets/Pesos'
+import Dimensiones from '../components/CPanelComponets/Dimensiones'
+import EspecificacionesDeLaTransmision from '../components/CPanelComponets/EspecificacionesDeLaTransmision'
+import Velocidades from '../components/CPanelComponets/Velocidades'
+import { Box, Button } from '@chakra-ui/react'
 
 function Index() {
   //Creamos el estado del formulario (por verificar , es decir False)
   const [Dindentidad, setDidentidad] = useState(false)
   const [DespecificacionesMotor, setDespecificacionesMotor] = useState(false)
   const [Ddimensiones, setDdimensiones] = useState(false)
+  const [Dpesos, setDpesos] = useState(false)
+  const [
+    DespecificacionesDeLaTransmision,
+    setDespecificacionesDeLaTransmision
+  ] = useState(false)
+  const [Dvelocidades, setDvelocidades] = useState(false)
+  const [FinalJson, setFinalJson] = useState({})
+
   // const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
-  const data = e => {
-    console.log(JSON.stringify(e))
+  const data = prod => {
+    let updatedValue = {}
+    updatedValue = prod
+    setFinalJson(shopCart => ({
+      ...shopCart,
+      ...updatedValue
+    }))
+
+    //final JSON
+    console.log(FinalJson)
   }
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors }
-  // } = useForm()
+  //const para que nos envie los datos del JSON solo en caso de Veificacion
+  const verify = (event, name) => {
+    if (event == null || !(event.type === 'click')) {
+      event = {
+        [name]: event
+      }
+      data(event)
+    }
 
-  // const onSubmit = values => {
-  //   console.log(values)
-  // }
+    // console.log('/*------------------*/')
+    // console.log('Didentidad :' + Dindentidad)
+    // console.log('DespecificacionesMotor :' + DespecificacionesMotor)
+    // console.log('Ddimensiones :' + Ddimensiones)
+    // console.log('Dpesos :' + Dpesos)
+    // console.log(
+    //   'DespecificacionesDeLaTransmision :' + DespecificacionesDeLaTransmision
+    // )
+    // console.log('Dvelocidades :' + Dvelocidades)
+    // console.log('/*------------------*/')
+  }
+  const onSubmit = () => {
+    if (
+      Dindentidad &&
+      DespecificacionesMotor &&
+      Ddimensiones &&
+      Dpesos &&
+      DespecificacionesDeLaTransmision &&
+      Dvelocidades
+    ) {
+      window.alert('El Form se envio correctamente')
+    } else {
+      window.alert('Faltan por verificar datos')
+    }
+
+    console.log([FinalJson])
+  }
 
   return (
     <Layout>
       <DatosIdentificativos
         verified={Dindentidad}
-        onVerified={datos_identificativos => {
+        onVerified={data => {
           setDidentidad(!Dindentidad)
-          if (!(datos_identificativos.type === 'click')) {
-            datos_identificativos = {
-              datos_identificativos
-            }
-            data(datos_identificativos)
-          }
+          verify(data, 'datos_identificativos')
         }}
       />
 
       <EspecificacionesDelMotor
         verified={DespecificacionesMotor}
-        onVerified={especificaciones_del_motor => {
+        onVerified={data => {
           setDespecificacionesMotor(!DespecificacionesMotor)
-          if (!(especificaciones_del_motor.type === 'click')) {
-            especificaciones_del_motor = {
-              especificaciones_del_motor
-            }
-            data(especificaciones_del_motor)
-          }
+          verify(data, 'especificaciones_del_motor')
         }}
       />
       <Dimensiones
         verified={Ddimensiones}
-        onVerified={dimensiones => {
+        onVerified={data => {
           setDdimensiones(!Ddimensiones)
-          if (!(dimensiones.type === 'click')) {
-            dimensiones = {
-              dimensiones
-            }
-            data(dimensiones)
-          }
+          verify(data, 'dimensiones')
         }}
       />
-      <Pesos />
-      {/* ----------------------Especificaciones de la transmision---------------------------- */}
-      {/* <Box
-        borderRadius={'lg'}
-        bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
-        p={3}
-        align={'center'}
-        mb={6}
-      >
-        <Box as={'h1'} fontSize={35}>
-          Especificaciones de la Transmision
-        </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box m={8}>
-            <VStack spacing={5}>
-              <Grid templateColumns="repeat(2, 2fr)" gap={6}>
-                <FormControl isRequired>
-                  <FormLabel>País de Origen</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <Select
-                      placeholder="Select country"
-                      size="md"
-                      {...register('País de Origen', {
-                        required: true
-                      })}
-                    >
-                      <option>United Arab Emirates</option>
-                      <option>Nigeria</option>
-                    </Select>
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Fabricante</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      type="text"
-                      minLength={3}
-                      maxLength={50}
-                      placeholder="Required"
-                      // name="user_email"
-                      {...register('Fabricante', {
-                        required: true
-                      })}
-                    />
-                  </InputGroup>
-                </FormControl>
-
-                <FormControl>
-                  <Button colorScheme="teal" id="submit-D" type="submit">
-                    Verify Content
-                  </Button>
-                </FormControl>
-              </Grid>
-            </VStack>
-          </Box>
-        </form>
-      </Box> */}
-      {/* ----------------------Velocidades---------------------------- */}
-      {/* <Box
-        borderRadius={'lg'}
-        bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
-        p={3}
-        align={'center'}
-        mb={6}
-      >
-        <Box as={'h1'} fontSize={35}>
-          Velocidades
-        </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box m={8}>
-            <VStack spacing={5}>
-              <Grid templateColumns="repeat(2, 2fr)" gap={6}>
-                <FormControl isRequired>
-                  <FormLabel>País de Origen</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <Select
-                      placeholder="Select country"
-                      size="md"
-                      {...register('País de Origen', {
-                        required: true
-                      })}
-                    >
-                      <option>United Arab Emirates</option>
-                      <option>Nigeria</option>
-                    </Select>
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Fabricante</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      type="text"
-                      minLength={3}
-                      maxLength={50}
-                      placeholder="Required"
-                      // name="user_email"
-                      {...register('Fabricante', {
-                        required: true
-                      })}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Modelo</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      type="text"
-                      minLength={3}
-                      maxLength={50}
-                      placeholder="Required"
-                      size="md"
-                      {...register('Modelo', { required: true })}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Generacion</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      type="number"
-                      minLength={1}
-                      maxLength={15}
-                      placeholder="Required"
-                      size="md"
-                      {...register('Generacion', {
-                        required: true,
-                        maxLength: 80
-                      })}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Serie</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      type="text"
-                      minLength={3}
-                      errorBorderColor="red.300"
-                      //name="user_name"
-                      placeholder="Required"
-                      size="md"
-                      {...register('Serie', { required: true, maxLength: 80 })}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Año de inicio</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      errorBorderColor="red.300"
-                      type="number"
-                      min={1900}
-                      max={2050}
-                      // name="user_name"
-                      placeholder="Required"
-                      size="md"
-                      {...register('Año de inicio', {
-                        required: true,
-                        maxLength: 80
-                      })}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel>Año de Finalizacion</FormLabel>
-                  <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      errorBorderColor="red.300"
-                      type="number"
-                      min={1900}
-                      max={2050}
-                      placeholder="Required"
-                      size="md"
-                      {...register('Año de Finalizacion', {
-                        required: true,
-                        maxLength: 80
-                      })}
-                    />
-                  </InputGroup>
-                </FormControl>
-
-                <FormControl>
-                  <Button colorScheme="teal" id="submit-D" type="submit">
-                    Verify Content
-                  </Button>
-                </FormControl>
-              </Grid>
-            </VStack>
-          </Box>
-        </form>
-      </Box> */}
+      <Pesos
+        verified={Dpesos}
+        onVerified={data => {
+          setDpesos(!Dpesos)
+          verify(data, 'pesos')
+        }}
+      />
+      <EspecificacionesDeLaTransmision
+        verified={DespecificacionesDeLaTransmision}
+        onVerified={data => {
+          setDespecificacionesDeLaTransmision(!DespecificacionesDeLaTransmision)
+          verify(data, 'especificaciones_de_la_transmision')
+        }}
+      />
+      <Velocidades
+        verified={Dvelocidades}
+        onVerified={data => {
+          setDvelocidades(!Dvelocidades)
+          verify(data, 'velocidades')
+        }}
+      />
+      <Box align="center">
+        {' '}
+        <Button w={150} h={12} colorScheme="teal" size="lg" onClick={onSubmit}>
+          Enviar
+        </Button>
+      </Box>
     </Layout>
   )
 }

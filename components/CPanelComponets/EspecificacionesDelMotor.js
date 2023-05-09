@@ -40,7 +40,6 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
       borderRadius={'lg'}
       bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
       p={3}
-      align={'center'}
       mb={6}
     >
       <Box as={'h1'} fontSize={35}>

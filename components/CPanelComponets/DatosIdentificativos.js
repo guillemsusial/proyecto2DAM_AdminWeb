@@ -37,8 +37,7 @@ function DatosIdentificativos({ onVerified, verified }) {
     <Box
       borderRadius={'lg'}
       bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
-      p={3}
-      align={'center'}
+      p={3}     
       mb={6}
     >
       <Box as={'h1'} fontSize={35}>
