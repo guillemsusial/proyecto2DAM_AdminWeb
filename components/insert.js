@@ -18,7 +18,6 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
 //modal
@@ -106,7 +105,7 @@ function Insert() {
         overlay={overlay}
       />
       {/* FORMS---------------------------- */}
-      <Tabs isFitted onChange={''}>
+      <Tabs isFitted onChange={() => {}}>
         <TabList mb="0.1em">
           <Tab
             color={Dindentidad ? 'white' : 'white'}
@@ -114,11 +113,36 @@ function Insert() {
           >
             Datos Identificativos
           </Tab>
-          <Tab>Especificaciones del Motor</Tab>
-          <Tab>Dimensiones</Tab>
-          <Tab>Pesos</Tab>
-          <Tab>Especificaciones de la Transmision</Tab>
-          <Tab>Velocidades</Tab>
+          <Tab
+            color={DespecificacionesMotor ? 'white' : 'white'}
+            bg={DespecificacionesMotor ? 'green.500' : 'red.500'}
+          >
+            Especificaciones del Motor
+          </Tab>
+          <Tab
+            color={Ddimensiones ? 'white' : 'white'}
+            bg={Ddimensiones ? 'green.500' : 'red.500'}
+          >
+            Dimensiones
+          </Tab>
+          <Tab
+            color={Dpesos ? 'white' : 'white'}
+            bg={Dpesos ? 'green.500' : 'red.500'}
+          >
+            Pesos
+          </Tab>
+          <Tab
+            color={DespecificacionesDeLaTransmision ? 'white' : 'white'}
+            bg={DespecificacionesDeLaTransmision ? 'green.500' : 'red.500'}
+          >
+            Especificaciones de la Transmision
+          </Tab>
+          <Tab
+            color={Dvelocidades ? 'white' : 'white'}
+            bg={Dvelocidades ? 'green.500' : 'red.500'}
+          >
+            Velocidades
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -185,6 +209,7 @@ function Insert() {
       </Tabs>
 
       {/*---------------------------- */}
+
       <Box align="center">
         {' '}
         <Button w={150} h={12} colorScheme="teal" size="lg" onClick={onSubmit}>
