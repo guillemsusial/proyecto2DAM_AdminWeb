@@ -1,12 +1,27 @@
+//custom Layout
 import Layout from './layouts/article'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+//componentes Form
 import DatosIdentificativos from './CPanelComponets/DatosIdentificativos'
 import EspecificacionesDelMotor from './CPanelComponets/EspecificacionesDelMotor'
 import Pesos from './CPanelComponets/Pesos'
 import Dimensiones from './CPanelComponets/Dimensiones'
 import EspecificacionesDeLaTransmision from './CPanelComponets/EspecificacionesDeLaTransmision'
 import Velocidades from './CPanelComponets/Velocidades'
-import { Box, Button, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+//chakra
+import {
+  Box,
+  Button,
+  ModalOverlay,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useColorModeValue,
+  useDisclosure
+} from '@chakra-ui/react'
+//modal
 import ErrorModal from './errorModal'
 
 function Insert() {
@@ -22,6 +37,10 @@ function Insert() {
   const [Dvelocidades, setDvelocidades] = useState(false)
   const [FinalJson, setFinalJson] = useState({})
 
+  useEffect(() => {
+    console.log(Dindentidad)
+  }, [Dindentidad])
+
   // const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
   const data = prod => {
     let updatedValue = {}
@@ -34,7 +53,7 @@ function Insert() {
 
   //const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
-    if (event == null || !(event.type === 'click')) {
+    if (event != null || !(event.type === 'click')) {
       event = {
         [name]: event
       }
@@ -87,49 +106,84 @@ function Insert() {
         overlay={overlay}
       />
       {/* FORMS---------------------------- */}
-      <DatosIdentificativos
-        verified={Dindentidad}
-        onVerified={data => {
-          setDidentidad(!Dindentidad)
-          verify(data, 'datos_identificativos')
-        }}
-      />
+      <Tabs isFitted onChange={''}>
+        <TabList mb="0.1em">
+          <Tab
+            color={Dindentidad ? 'white' : 'white'}
+            bg={Dindentidad ? 'green.500' : 'red.500'}
+          >
+            Datos Identificativos
+          </Tab>
+          <Tab>Especificaciones del Motor</Tab>
+          <Tab>Dimensiones</Tab>
+          <Tab>Pesos</Tab>
+          <Tab>Especificaciones de la Transmision</Tab>
+          <Tab>Velocidades</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            {' '}
+            <DatosIdentificativos
+              verified={Dindentidad}
+              onVerified={data => {
+                setDidentidad(!Dindentidad)
+                verify(data, 'datos_identificativos')
+              }}
+            />
+          </TabPanel>
+          <TabPanel>
+            {' '}
+            <EspecificacionesDelMotor
+              verified={DespecificacionesMotor}
+              onVerified={data => {
+                setDespecificacionesMotor(!DespecificacionesMotor)
+                verify(data, 'especificaciones_del_motor')
+              }}
+            />
+          </TabPanel>
+          <TabPanel>
+            <Dimensiones
+              verified={Ddimensiones}
+              onVerified={data => {
+                setDdimensiones(!Ddimensiones)
+                verify(data, 'dimensiones')
+              }}
+            />
+          </TabPanel>
+          <TabPanel>
+            <Pesos
+              verified={Dpesos}
+              onVerified={data => {
+                setDpesos(!Dpesos)
+                verify(data, 'pesos')
+              }}
+            />
+          </TabPanel>
+          <TabPanel>
+            {' '}
+            <EspecificacionesDeLaTransmision
+              verified={DespecificacionesDeLaTransmision}
+              onVerified={data => {
+                setDespecificacionesDeLaTransmision(
+                  !DespecificacionesDeLaTransmision
+                )
+                verify(data, 'especificaciones_de_la_transmision')
+              }}
+            />
+          </TabPanel>
+          <TabPanel>
+            {' '}
+            <Velocidades
+              verified={Dvelocidades}
+              onVerified={data => {
+                setDvelocidades(!Dvelocidades)
+                verify(data, 'velocidades')
+              }}
+            />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
 
-      <EspecificacionesDelMotor
-        verified={DespecificacionesMotor}
-        onVerified={data => {
-          setDespecificacionesMotor(!DespecificacionesMotor)
-          verify(data, 'especificaciones_del_motor')
-        }}
-      />
-      <Dimensiones
-        verified={Ddimensiones}
-        onVerified={data => {
-          setDdimensiones(!Ddimensiones)
-          verify(data, 'dimensiones')
-        }}
-      />
-      <Pesos
-        verified={Dpesos}
-        onVerified={data => {
-          setDpesos(!Dpesos)
-          verify(data, 'pesos')
-        }}
-      />
-      <EspecificacionesDeLaTransmision
-        verified={DespecificacionesDeLaTransmision}
-        onVerified={data => {
-          setDespecificacionesDeLaTransmision(!DespecificacionesDeLaTransmision)
-          verify(data, 'especificaciones_de_la_transmision')
-        }}
-      />
-      <Velocidades
-        verified={Dvelocidades}
-        onVerified={data => {
-          setDvelocidades(!Dvelocidades)
-          verify(data, 'velocidades')
-        }}
-      />
       {/*---------------------------- */}
       <Box align="center">
         {' '}
