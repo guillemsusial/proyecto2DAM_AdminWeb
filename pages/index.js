@@ -4,6 +4,8 @@ import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Insert from '../components/insert'
 
+import Editar from '../components/edit'
+
 function Index() {
   return (
     <Layout>
@@ -19,7 +21,7 @@ function Index() {
               <Insert />
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+              <Editar />
             </TabPanel>
             <TabPanel>
               <p>hola</p>

@@ -1,42 +1,120 @@
 //custom Layout
-import Layout from './layouts/article'
+
 import React, { useState } from 'react'
+
 //componentes Form
-import DatosIdentificativos from './CPanelComponets/DatosIdentificativos'
-import EspecificacionesDelMotor from './CPanelComponets/EspecificacionesDelMotor'
-import Pesos from './CPanelComponets/Pesos'
-import Dimensiones from './CPanelComponets/Dimensiones'
-import EspecificacionesDeLaTransmision from './CPanelComponets/EspecificacionesDeLaTransmision'
-import Velocidades from './CPanelComponets/Velocidades'
+
+import { Step, Steps, useSteps } from 'chakra-ui-steps'
 //chakra
 import {
   Box,
   Button,
-  ModalOverlay,
-  Tab,
-  TabIndicator,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
+  Flex,
+  Heading,
+  useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
-//modal
+import Dimensiones from './CPanelComponets/Dimensiones'
+import Pesos from './CPanelComponets/Pesos'
+import DatosIdentificativos from './CPanelComponets/DatosIdentificativos'
+import EspecificacionesDelMotor from './CPanelComponets/EspecificacionesDelMotor'
+import EspecificacionesDeLaTransmision from './CPanelComponets/EspecificacionesDeLaTransmision'
+import Velocidades from './CPanelComponets/Velocidades'
 import ErrorModal from './errorModal'
 
-function Insert() {
-  //Creamos el estado del formulario (por verificar , es decir False)
-  const [Dindentidad, setDidentidad] = useState(false)
-  const [DespecificacionesMotor, setDespecificacionesMotor] = useState(false)
-  const [Ddimensiones, setDdimensiones] = useState(false)
-  const [Dpesos, setDpesos] = useState(false)
-  const [
-    DespecificacionesDeLaTransmision,
-    setDespecificacionesDeLaTransmision
-  ] = useState(false)
-  const [Dvelocidades, setDvelocidades] = useState(false)
+//modal
+
+export default function Basic({ variant }) {
+  const { nextStep, prevStep, reset, activeStep } = useSteps({
+    initialStep: 0
+  })
+  const [CorrectF, setCorrectF] = useState(false)
+
+  const steps = [
+    {
+      label: 'Step 1',
+      content: (
+        <DatosIdentificativos
+          verified={CorrectF}
+          onVerified={() => {
+            setCorrectF(!CorrectF)
+            verify(data, 'datos_identificativos')
+          }}
+        />
+      )
+    },
+    {
+      label: 'Step 2',
+      content: (
+        <EspecificacionesDelMotor
+          verified={CorrectF}
+          onVerified={() => {
+            setCorrectF(!CorrectF)
+            verify(data, 'especificaciones_del_motor')
+          }}
+        />
+      )
+    },
+    {
+      label: 'Step 3',
+      content: (
+        <EspecificacionesDeLaTransmision
+          verified={CorrectF}
+          onVerified={() => {
+            setCorrectF(!CorrectF)
+            verify(data, 'especificaciones_de_la_transmision')
+          }}
+        />
+      )
+    },
+    {
+      label: 'Step 4',
+      content: (
+        <Velocidades
+          verified={CorrectF}
+          onVerified={() => {
+            setCorrectF(!CorrectF)
+            verify(data, 'velocidades')
+          }}
+        />
+      )
+    },
+    {
+      label: 'Step 5',
+      content: (
+        <Dimensiones
+          verified={CorrectF}
+          onVerified={() => {
+            setCorrectF(!CorrectF)
+            verify(data, 'dimensiones')
+          }}
+        />
+      )
+    },
+    {
+      label: 'Step 6',
+      content: (
+        <Pesos
+          verified={CorrectF}
+          onVerified={() => {
+            setCorrectF(!CorrectF)
+            verify(data, 'pesos')
+          }}
+        />
+      )
+    }
+  ]
+
+  const isLastStep = activeStep === steps.length - 1
+  const hasCompletedAllSteps = activeStep === steps.length
+  const bg = useColorModeValue('gray.200', 'gray.700')
+
   //En este estado se guarda el JSON que mas adelante mandaremos a la BBDD
   const [FinalJson, setFinalJson] = useState({})
+
+  //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [overlay, setOverlay] = useState()
 
   // Esta constante funciona como StringBuilder , acumulando todas las
   // respuestas de los fomularios , siempre y cuando los formularios esten validados
@@ -59,61 +137,8 @@ function Insert() {
     }
   }
 
-  //Esta contante es un overlay que pertenece al Modal de error de envio de formulario
-  const OverlayTwo = () => (
-    <ModalOverlay
-      bg="none"
-      backdropFilter="auto"
-      backdropInvert="80%"
-      backdropBlur="2px"
-    />
-  )
-
-  //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [overlay, setOverlay] = useState()
-
-  // cuando enviamos el formulario corroboramos que todos los formularios
-  // este verificados y enviamos el JSON a la base de datos
-  const onSubmit = () => {
-    if (
-      Dindentidad &&
-      DespecificacionesMotor &&
-      Ddimensiones &&
-      Dpesos &&
-      DespecificacionesDeLaTransmision &&
-      Dvelocidades
-    ) {
-      window.alert('El Form se envio correctamente')
-      //final JSON
-      console.log(FinalJson)
-    } else {
-      //error
-      setOverlay(<OverlayTwo />)
-      onOpen()
-    }
-  }
-  //Est constante funciona de Componente para controlar los estilos de los subformularios ,
-  //controllando cual es el estado de de cada uno de los subformularios
-  const SubTabs = props => {
-    let styles
-    console.log(props.subFormState)
-    if (props.subFormState) {
-      styles = {
-        color: 'white',
-        backgroundColor: '#40a46c'
-      }
-    } else {
-      styles = {
-        color: 'white',
-        backgroundColor: '#e83c3c'
-      }
-    }
-    return <Tab style={styles}>{props.name}</Tab>
-  }
-
   return (
-    <Layout>
+    <Flex flexDir="column" width="100%">
       {/* Modal */}
       <ErrorModal
         isOpen={isOpen}
@@ -122,104 +147,56 @@ function Insert() {
         }}
         overlay={overlay}
       />
-      {/* ------------------FORMS/TABS---------------------------- */}
-      <Tabs isFitted onChange={() => {}} size="md" variant="enclosed">
-        <TabList
-          mb="0.1em"
-          _selected={{ fil: 'drop-shadow(2px 4px 6px black)' }}
-        >
-          <SubTabs subFormState={Dindentidad} name={'Datos Identificativos'} />
-          <SubTabs
-            subFormState={DespecificacionesMotor}
-            name={'Especificaciones del Motor'}
-          />
-          <SubTabs subFormState={Ddimensiones} name={'Dimensiones'} />
-          <SubTabs subFormState={Dpesos} name={'Pesos'} />
-          <SubTabs
-            subFormState={DespecificacionesDeLaTransmision}
-            name={'Especificaciones de la Transmision'}
-          />
-          <SubTabs subFormState={Dvelocidades} name={'Velocidades'} />
-        </TabList>
-        <TabIndicator
-          mt="-1.5px"
-          height="4px"
-          bg="#e0e1e5"
-          borderRadius="1px"
-        />
-        <TabPanels>
-          <TabPanel>
-            {' '}
-            <DatosIdentificativos
-              verified={Dindentidad}
-              onVerified={data => {
-                setDidentidad(!Dindentidad)
-                verify(data, 'datos_identificativos')
-              }}
-            />
-          </TabPanel>
-          <TabPanel>
-            {' '}
-            <EspecificacionesDelMotor
-              verified={DespecificacionesMotor}
-              onVerified={data => {
-                setDespecificacionesMotor(!DespecificacionesMotor)
-                verify(data, 'especificaciones_del_motor')
-              }}
-            />
-          </TabPanel>
-          <TabPanel>
-            <Dimensiones
-              verified={Ddimensiones}
-              onVerified={data => {
-                setDdimensiones(!Ddimensiones)
-                verify(data, 'dimensiones')
-              }}
-            />
-          </TabPanel>
-          <TabPanel>
-            <Pesos
-              verified={Dpesos}
-              onVerified={data => {
-                setDpesos(!Dpesos)
-                verify(data, 'pesos')
-              }}
-            />
-          </TabPanel>
-          <TabPanel>
-            {' '}
-            <EspecificacionesDeLaTransmision
-              verified={DespecificacionesDeLaTransmision}
-              onVerified={data => {
-                setDespecificacionesDeLaTransmision(
-                  !DespecificacionesDeLaTransmision
-                )
-                verify(data, 'especificaciones_de_la_transmision')
-              }}
-            />
-          </TabPanel>
-          <TabPanel>
-            {' '}
-            <Velocidades
-              verified={Dvelocidades}
-              onVerified={data => {
-                setDvelocidades(!Dvelocidades)
-                verify(data, 'velocidades')
-              }}
-            />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <Steps variant={variant} colorScheme="blue" activeStep={activeStep}>
+        {steps.map(({ label, content }) => (
+          <Step label={label} key={label} description={'Required'}>
+            <Box sx={{ p: 8, bg, my: 8, rounded: 'md' }}>
+              <Heading fontSize="xl" textAlign="center">
+                {content}
+              </Heading>
+            </Box>
+          </Step>
+        ))}
+      </Steps>
+      {hasCompletedAllSteps && (
+        <Box sx={{ bg, my: 8, p: 8, rounded: 'md' }}>
+          <Heading fontSize="xl" textAlign={'center'}>
+            El vehiculo se ha insertado Correctamente 🎉
+          </Heading>
+        </Box>
+      )}
+      <Flex width="100%" justify="flex-end" gap={4}>
+        {hasCompletedAllSteps ? (
+          <Button size="sm" onClick={reset}>
+            Insertar Otro Vehiculo
+          </Button>
+        ) : (
+          <>
+            <Button
+              isDisabled={activeStep === 0}
+              onClick={prevStep}
+              size="sm"
+              variant="ghost"
+            >
+              Prev
+            </Button>
 
-      {/*--------------------------------------------------- */}
-
-      <Box align="center">
-        {' '}
-        <Button w={150} h={12} colorScheme="teal" size="lg" onClick={onSubmit}>
-          Enviar
-        </Button>
-      </Box>
-    </Layout>
+            {/* Falta poner el modal on error */}
+            <Button
+              size="sm"
+              onClick={() =>
+                CorrectF
+                  ? (nextStep(),
+                    setCorrectF(!CorrectF),
+                    isLastStep ? onsubmit() : console.log('error'))
+                  : onOpen()
+              }
+            >
+              {isLastStep ? 'Finish' : 'Next'}
+            </Button>
+          </>
+        )}
+      </Flex>
+    </Flex>
   )
 }
-export default Insert
