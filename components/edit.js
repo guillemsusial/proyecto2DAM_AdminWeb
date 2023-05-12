@@ -12,6 +12,7 @@ import Velocidades from './CPanelComponets/Velocidades'
 import {
   Box,
   Button,
+  Input,
   ModalOverlay,
   Tab,
   TabIndicator,
@@ -113,6 +114,7 @@ function Editar() {
 
   return (
     <Layout>
+      <Input mb={12} placeholder='Inserte el ID' />
       {/* Modal */}
       <ErrorModal
         isOpen={isOpen}

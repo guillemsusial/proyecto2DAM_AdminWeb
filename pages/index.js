@@ -3,7 +3,10 @@ import Layout from '../components/layouts/article'
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Insert from '../components/insert'
-
+import { BsFillDatabaseFill } from 'react-icons/bs'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
+import { FaPencilAlt } from 'react-icons/fa'
+import { MdDelete } from 'react-icons/md'
 import Editar from '../components/edit'
 
 function Index() {
@@ -12,11 +15,23 @@ function Index() {
       <Box mt={50}>
         <Tabs isFitted variant="enclosed" colorScheme="green">
           <TabList>
-            <Tab _selected={{ color: 'white', bg: 'green.500' }}>Insert</Tab>
-            <Tab _selected={{ color: 'white', bg: 'yellow.500' }}>Edit</Tab>
-            <Tab _selected={{ color: 'white', bg: 'red.500' }}>Delete</Tab>
+            <Tab _selected={{ color: 'white', bg: 'blue.500' }}>
+              <BsFillDatabaseFill />
+            </Tab>
+            <Tab _selected={{ color: 'white', bg: 'green.500' }}>
+              <AiOutlinePlusCircle />
+            </Tab>
+            <Tab _selected={{ color: 'white', bg: 'yellow.500' }}>
+              <FaPencilAlt />
+            </Tab>
+            <Tab _selected={{ color: 'white', bg: 'red.500' }}>
+              <MdDelete />
+            </Tab>
           </TabList>
           <TabPanels>
+            <TabPanel>
+              <p>hola</p>
+            </TabPanel>
             <TabPanel>
               <Insert />
             </TabPanel>
