@@ -1,6 +1,6 @@
 //custom Layout
 import Layout from './layouts/article'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 //componentes Form
 import DatosIdentificativos from './CPanelComponets/DatosIdentificativos'
 import EspecificacionesDelMotor from './CPanelComponets/EspecificacionesDelMotor'
@@ -14,6 +14,7 @@ import {
   Button,
   ModalOverlay,
   Tab,
+  TabIndicator,
   TabList,
   TabPanel,
   TabPanels,
@@ -34,13 +35,11 @@ function Insert() {
     setDespecificacionesDeLaTransmision
   ] = useState(false)
   const [Dvelocidades, setDvelocidades] = useState(false)
+  //En este estado se guarda el JSON que mas adelante mandaremos a la BBDD
   const [FinalJson, setFinalJson] = useState({})
 
-  useEffect(() => {
-    console.log(Dindentidad)
-  }, [Dindentidad])
-
-  // const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
+  // Esta constante funciona como StringBuilder , acumulando todas las
+  // respuestas de los fomularios , siempre y cuando los formularios esten validados
   const data = prod => {
     let updatedValue = {}
     updatedValue = prod
@@ -50,7 +49,7 @@ function Insert() {
     }))
   }
 
-  //const para que nos envie los datos del JSON solo en caso de Veificacion
+  // const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
     if (event != null || !(event.type === 'click')) {
       event = {
@@ -60,7 +59,7 @@ function Insert() {
     }
   }
 
-  //error modal
+  //Esta contante es un overlay que pertenece al Modal de error de envio de formulario
   const OverlayTwo = () => (
     <ModalOverlay
       bg="none"
@@ -69,9 +68,10 @@ function Insert() {
       backdropBlur="2px"
     />
   )
-  //estados del Modal
+
+  //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [overlay, setOverlay] = React.useState()
+  const [overlay, setOverlay] = useState()
 
   // cuando enviamos el formulario corroboramos que todos los formularios
   // este verificados y enviamos el JSON a la base de datos
@@ -93,6 +93,24 @@ function Insert() {
       onOpen()
     }
   }
+  //Est constante funciona de Componente para controlar los estilos de los subformularios ,
+  //controllando cual es el estado de de cada uno de los subformularios
+  const SubTabs = props => {
+    let styles
+    console.log(props.subFormState)
+    if (props.subFormState) {
+      styles = {
+        color: 'white',
+        backgroundColor: '#40a46c'
+      }
+    } else {
+      styles = {
+        color: 'white',
+        backgroundColor: '#e83c3c'
+      }
+    }
+    return <Tab style={styles}>{props.name}</Tab>
+  }
 
   return (
     <Layout>
@@ -104,46 +122,31 @@ function Insert() {
         }}
         overlay={overlay}
       />
-      {/* FORMS---------------------------- */}
-      <Tabs isFitted onChange={() => {}}>
-        <TabList mb="0.1em">
-          <Tab
-            color={Dindentidad ? 'white' : 'white'}
-            bg={Dindentidad ? 'green.500' : 'red.500'}
-          >
-            Datos Identificativos
-          </Tab>
-          <Tab
-            color={DespecificacionesMotor ? 'white' : 'white'}
-            bg={DespecificacionesMotor ? 'green.500' : 'red.500'}
-          >
-            Especificaciones del Motor
-          </Tab>
-          <Tab
-            color={Ddimensiones ? 'white' : 'white'}
-            bg={Ddimensiones ? 'green.500' : 'red.500'}
-          >
-            Dimensiones
-          </Tab>
-          <Tab
-            color={Dpesos ? 'white' : 'white'}
-            bg={Dpesos ? 'green.500' : 'red.500'}
-          >
-            Pesos
-          </Tab>
-          <Tab
-            color={DespecificacionesDeLaTransmision ? 'white' : 'white'}
-            bg={DespecificacionesDeLaTransmision ? 'green.500' : 'red.500'}
-          >
-            Especificaciones de la Transmision
-          </Tab>
-          <Tab
-            color={Dvelocidades ? 'white' : 'white'}
-            bg={Dvelocidades ? 'green.500' : 'red.500'}
-          >
-            Velocidades
-          </Tab>
+      {/* ------------------FORMS/TABS---------------------------- */}
+      <Tabs isFitted onChange={() => {}} size="md" variant="enclosed">
+        <TabList
+          mb="0.1em"
+          _selected={{ fil: 'drop-shadow(2px 4px 6px black)' }}
+        >
+          <SubTabs subFormState={Dindentidad} name={'Datos Identificativos'} />
+          <SubTabs
+            subFormState={DespecificacionesMotor}
+            name={'Especificaciones del Motor'}
+          />
+          <SubTabs subFormState={Ddimensiones} name={'Dimensiones'} />
+          <SubTabs subFormState={Dpesos} name={'Pesos'} />
+          <SubTabs
+            subFormState={DespecificacionesDeLaTransmision}
+            name={'Especificaciones de la Transmision'}
+          />
+          <SubTabs subFormState={Dvelocidades} name={'Velocidades'} />
         </TabList>
+        <TabIndicator
+          mt="-1.5px"
+          height="4px"
+          bg="#e0e1e5"
+          borderRadius="1px"
+        />
         <TabPanels>
           <TabPanel>
             {' '}
@@ -208,7 +211,7 @@ function Insert() {
         </TabPanels>
       </Tabs>
 
-      {/*---------------------------- */}
+      {/*--------------------------------------------------- */}
 
       <Box align="center">
         {' '}
