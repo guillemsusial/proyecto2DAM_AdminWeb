@@ -21,9 +21,11 @@
   "homepage": "https://github.com/guillemsusial/proyecto2DAM_AdminWeb#readme",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
+    "axios": "^1.4.0",
     "chakra-ui-steps": "^2.1.0",
     "react-hook-form": "^7.43.9",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "react-table": "^7.8.0"
   },
   "devDependencies": {
     "@chakra-ui/react": "^2.6.1",
