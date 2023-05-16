@@ -15,6 +15,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
+import ModelViewer from '../pages/ModelViewer'
 
 function LinkItem({ href, path, children }) {
   const active = path === href
@@ -73,10 +74,10 @@ function Navbar(props) {
           <LinkItem href={'/certificates'} path={path}>
             Panel Administrador
           </LinkItem>
-          {/* <LinkItem href={'/posts'} path={path}>
-            Posts
+          <LinkItem href={'/ModelViewer'} path={path}>
+            ModelViewer
           </LinkItem>
-          <LinkItem href={'/works'} path={path}>
+          {/* <LinkItem href={'/works'} path={path}>
             Works
           </LinkItem>
           <LinkItem href={'/contact'} path={path}>
