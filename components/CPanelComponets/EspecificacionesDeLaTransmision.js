@@ -9,10 +9,9 @@ import {
   InputLeftElement,
   Grid,
   useColorModeValue,
-  Alert,
-  AlertIcon
+  
 } from '@chakra-ui/react'
-
+import ReEditar from '../ReEditar'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
@@ -86,13 +85,7 @@ export default function EspecificacionesDeLaTransmision({
           </Box>
         </form>
       ) : (
-        <Alert status="success">
-          <AlertIcon />
-          Informacion Verificada
-          <Button ml={12} colorScheme="teal" size="sm" onClick={onVerified}>
-            Editar
-          </Button>
-        </Alert>
+        <ReEditar onVerified={onVerified} />
       )}
     </Box>
   )

@@ -9,14 +9,13 @@ import {
   InputLeftElement,
   Grid,
   Select,
-  useColorModeValue,
-  Alert,
-  AlertIcon
+  useColorModeValue,  
 } from '@chakra-ui/react'
 
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
+import ReEditar from '../ReEditar'
 
 function DatosIdentificativos({ onVerified, verified }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
@@ -37,7 +36,7 @@ function DatosIdentificativos({ onVerified, verified }) {
     <Box
       borderRadius={'lg'}
       bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
-      p={3}     
+      p={3}
       mb={6}
     >
       <Box as={'h1'} fontSize={35}>
@@ -186,13 +185,7 @@ function DatosIdentificativos({ onVerified, verified }) {
           </Box>
         </form>
       ) : (
-        <Alert status="success">
-          <AlertIcon />
-          Informacion Verificada
-          <Button ml={12} colorScheme="teal" size="sm" onClick={onVerified}>
-            Editar
-          </Button>
-        </Alert>
+        <ReEditar onVerified={onVerified} />
       )}
     </Box>
   )

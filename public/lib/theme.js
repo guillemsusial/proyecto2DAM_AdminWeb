@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
+import { StepsTheme as Steps } from 'chakra-ui-steps'
 
 // 2. Add your color mode config
 const styles = {
@@ -25,6 +26,7 @@ const components = {
       }
     }
   },
+  Steps,
   Link: {
     // style object for base or default style
     baseStyle: props => ({

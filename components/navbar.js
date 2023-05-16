@@ -12,7 +12,8 @@ import {
   MenuList,
   MenuButton,
   IconButton,
-  useColorModeValue
+  useColorModeValue,
+  Text
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ModelViewer from '../pages/ModelViewer'
@@ -59,7 +60,16 @@ function Navbar(props) {
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
             {/* <Logo /> */}
-            <button>Panel de Administracion</button>
+            <NextLink href="/" passHref>
+              <Text
+                color={useColorModeValue('gray.800', 'whiteAlpha.900')}
+                fontFamily="M PLUS Rounded 1c"
+                fontWeight={'bold'}
+                ml={3}
+              >
+                Panel de Control
+              </Text>
+            </NextLink>
           </Heading>
         </Flex>
         {/* Stack ->para separar los Link items */}
@@ -74,8 +84,12 @@ function Navbar(props) {
           <LinkItem href={'/certificates'} path={path}>
             Panel Administrador
           </LinkItem>
+          <LinkItem href={'/insert'} path={path}></LinkItem>
           <LinkItem href={'/ModelViewer'} path={path}>
             ModelViewer
+          </LinkItem>
+          {/* <LinkItem href={'/posts'} path={path}>
+            Posts
           </LinkItem>
           {/* <LinkItem href={'/works'} path={path}>
             Works
