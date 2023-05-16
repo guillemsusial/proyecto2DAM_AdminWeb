@@ -23,6 +23,8 @@
     "@chakra-ui/icons": "^2.0.19",
     "axios": "^1.4.0",
     "chakra-ui-steps": "^2.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-table": "^7.8.0"
