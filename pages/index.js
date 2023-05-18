@@ -8,6 +8,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { FaPencilAlt } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 import Editar from '../components/edit'
+import Seleccionar from '../components/select'
 
 function Index() {
   return (
@@ -30,7 +31,7 @@ function Index() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <p>hola</p>
+              <Seleccionar />
             </TabPanel>
             <TabPanel>
               <Insert />
