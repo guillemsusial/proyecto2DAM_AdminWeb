@@ -2,11 +2,11 @@ import axios from 'axios'
 import React, { useMemo, useState, useEffect } from 'react'
 
 import Tables from './table'
-import { Button } from '@chakra-ui/button'
+
 
 function Seleccionar() {
   const [data, setData] = useState([])
-  console.log(data)
+
   useEffect(() => {
     const datas = {
       dataSource: 'Proyecto2DAM',
@@ -26,12 +26,7 @@ function Seleccionar() {
   //     setData(result.data);
   //   })();
   // }, []);
-  const Edit = () => {
-    return <Button bg={'orange'} />
-  }
-  const Delete = () => {
-    return <Button bg={'red'} />
-  }
+  
 
   const columns = useMemo(
     () => [
@@ -58,19 +53,6 @@ function Seleccionar() {
           {
             Header: 'Modelo',
             accessor: 'datos_identificativos.modelo'
-          }
-        ]
-      },
-      {
-        Header: 'Options',
-        columns: [
-          {
-            Header: 'Update',
-            accessor: Edit
-          },
-          {
-            Header: 'Delete',
-            accessor: Delete
           }
         ]
       }

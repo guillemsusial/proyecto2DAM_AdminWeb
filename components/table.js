@@ -1,7 +1,18 @@
 /* eslint-disable react/jsx-key */
 // Table.js
 
-import {Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr
+} from '@chakra-ui/react'
 import React from 'react'
 import { useTable } from 'react-table'
 
@@ -30,6 +41,8 @@ export default function Tables({ columns, data }) {
             {headerGroup.headers.map(column => (
               <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
             ))}
+            <Th></Th>
+            <Th></Th>
           </Tr>
         ))}
       </Thead>
@@ -41,6 +54,23 @@ export default function Tables({ columns, data }) {
               {row.cells.map(cell => {
                 return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
               })}
+
+              <Td>
+                <Button
+                  bg={'green.300'}
+                  onClick={() =>
+                    window.alert('await axios.post(' + '/api/data' + ', datas)')
+                  } //console.log(row.original)
+                />
+              </Td>
+              <Td>
+                <Button
+                  bg={'red.300'}
+                  onClick={() =>
+                    window.alert('await axios.post(' + '/api/data' + ', datas)')
+                  }
+                />
+              </Td>
             </Tr>
           )
         })}
