@@ -61,8 +61,9 @@ export default function Tables({ columns, data }) {
                   size="lg"
                   icon={<RiEdit2Line />}
                   onClick={() =>
-                    window.alert('await axios.post(' + '/api/data' + ', datas)')
-                  } //console.log(row.original)
+                    //window.alert('await axios.post(' + '/api/data' + ', datas)')
+                    console.log(row.original)
+                  } 
                 />
               </Td>
               <Td>

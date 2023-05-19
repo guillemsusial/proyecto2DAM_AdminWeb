@@ -13,7 +13,7 @@ function Seleccionar() {
       collection: 'cars'
     }
     ;(async () => {
-      const result = await axios.post('/api/data', datas)
+      const result = await axios.post('/api/selectAll', datas)
 
       setData(result.data.documents)
     })()
