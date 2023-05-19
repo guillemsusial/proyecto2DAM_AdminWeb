@@ -11,16 +11,17 @@ import {
   Button,
   Flex,
   Heading,
+  Text,
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
-import Dimensiones from './CPanelComponets/Dimensiones'
-import Pesos from './CPanelComponets/Pesos'
-import DatosIdentificativos from './CPanelComponets/DatosIdentificativos'
-import EspecificacionesDelMotor from './CPanelComponets/EspecificacionesDelMotor'
-import EspecificacionesDeLaTransmision from './CPanelComponets/EspecificacionesDeLaTransmision'
-import Velocidades from './CPanelComponets/Velocidades'
-import ErrorModal from './errorModal'
+import Dimensiones from '../CPanelComponets/Dimensiones'
+import Pesos from '../CPanelComponets/Pesos'
+import DatosIdentificativos from '../CPanelComponets/DatosIdentificativos'
+import EspecificacionesDelMotor from '../CPanelComponets/EspecificacionesDelMotor'
+import EspecificacionesDeLaTransmision from '../CPanelComponets/EspecificacionesDeLaTransmision'
+import Velocidades from '../CPanelComponets/Velocidades'
+import ErrorModal from '../errorModal'
 
 //modal
 
@@ -29,6 +30,10 @@ export default function Basic({ variant }) {
     initialStep: 0
   })
   const [CorrectF, setCorrectF] = useState(false)
+  //aqui esta la estructura de cada paso
+  //como podemos ver el contenido es el formulario mimos que lo llamamos desde otro componente
+  //con verified nos trae un boolean (true o false )si el formulario ha sido validado una vez
+  //enviado , y onVerified nos trae el resultado del envio(en caso de que haya sido enviado),
 
   const steps = [
     {
@@ -36,7 +41,7 @@ export default function Basic({ variant }) {
       content: (
         <DatosIdentificativos
           verified={CorrectF}
-          onVerified={() => {
+          onVerified={data => {
             setCorrectF(!CorrectF)
             verify(data, 'datos_identificativos')
           }}
@@ -48,7 +53,7 @@ export default function Basic({ variant }) {
       content: (
         <EspecificacionesDelMotor
           verified={CorrectF}
-          onVerified={() => {
+          onVerified={data => {
             setCorrectF(!CorrectF)
             verify(data, 'especificaciones_del_motor')
           }}
@@ -60,7 +65,7 @@ export default function Basic({ variant }) {
       content: (
         <EspecificacionesDeLaTransmision
           verified={CorrectF}
-          onVerified={() => {
+          onVerified={data => {
             setCorrectF(!CorrectF)
             verify(data, 'especificaciones_de_la_transmision')
           }}
@@ -72,7 +77,7 @@ export default function Basic({ variant }) {
       content: (
         <Velocidades
           verified={CorrectF}
-          onVerified={() => {
+          onVerified={data => {
             setCorrectF(!CorrectF)
             verify(data, 'velocidades')
           }}
@@ -84,7 +89,7 @@ export default function Basic({ variant }) {
       content: (
         <Dimensiones
           verified={CorrectF}
-          onVerified={() => {
+          onVerified={data => {
             setCorrectF(!CorrectF)
             verify(data, 'dimensiones')
           }}
@@ -96,7 +101,7 @@ export default function Basic({ variant }) {
       content: (
         <Pesos
           verified={CorrectF}
-          onVerified={() => {
+          onVerified={data => {
             setCorrectF(!CorrectF)
             verify(data, 'pesos')
           }}
@@ -104,8 +109,9 @@ export default function Basic({ variant }) {
       )
     }
   ]
-
+  //aqui controlamos que paso es el ultimo para mostrar la vista de reinicio
   const isLastStep = activeStep === steps.length - 1
+  //nos aseguramos que haya cumplido todos los pasos (Boolean)
   const hasCompletedAllSteps = activeStep === steps.length
   const bg = useColorModeValue('gray.200', 'gray.700')
 
@@ -114,7 +120,6 @@ export default function Basic({ variant }) {
 
   //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [overlay, setOverlay] = useState()
 
   // Esta constante funciona como StringBuilder , acumulando todas las
   // respuestas de los fomularios , siempre y cuando los formularios esten validados
@@ -127,6 +132,11 @@ export default function Basic({ variant }) {
     }))
   }
 
+  //una vez finalizamos el fomulario realizamos una llamada axios a una api express(error CORS)
+  //y insertamos el nuevo modelo.
+  function onsubmit() {
+    console.log(FinalJson)
+  }
   // const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
     if (event != null || !(event.type === 'click')) {
@@ -145,7 +155,29 @@ export default function Basic({ variant }) {
         onClose={() => {
           onClose()
         }}
-        overlay={overlay}
+        //falta un diccionario de errores
+        text={
+          <>
+            <Text>
+              Porfavor Valide todos los datos antes de ir al siguiente
+              formulario:
+            </Text>
+            <br />
+            <Text>
+              Si no esta seguro de como validar los datos , al final del
+              formulario encontrara un boton parecido a este:
+            </Text>
+            <Box align="center" m={10}>
+              <Button colorScheme="teal" id="submit-D" type="submit">
+                Verify Content
+              </Button>
+            </Box>
+            <Text>
+              Una vez presionado este le dira que es lo que le falta por
+              validar, gracias.
+            </Text>
+          </>
+        }
       />
       <Steps variant={variant} colorScheme="blue" activeStep={activeStep}>
         {steps.map(({ label, content }) => (

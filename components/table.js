@@ -1,11 +1,8 @@
 /* eslint-disable react/jsx-key */
 // Table.js
 
-import {
-  Box,
-  Button,
-  Center,
-  Container,
+import {  
+  IconButton,
   Table,
   Tbody,
   Td,
@@ -15,6 +12,8 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { useTable } from 'react-table'
+import { RiEdit2Line } from 'react-icons/ri'
+import { FaTrashAlt } from 'react-icons/fa'
 
 export default function Tables({ columns, data }) {
   // Use the useTable Hook to send the columns and data to build the table
@@ -56,19 +55,25 @@ export default function Tables({ columns, data }) {
               })}
 
               <Td>
-                <Button
-                  bg={'green.300'}
+                <IconButton
+                  colorScheme="teal"
+                  aria-label="Call Segun"
+                  size="lg"
+                  icon={<RiEdit2Line />}
                   onClick={() =>
                     window.alert('await axios.post(' + '/api/data' + ', datas)')
                   } //console.log(row.original)
                 />
               </Td>
               <Td>
-                <Button
-                  bg={'red.300'}
+                <IconButton
+                  colorScheme="red"
+                  aria-label="Call Segun"
+                  size="lg"
+                  icon={<FaTrashAlt />}
                   onClick={() =>
                     window.alert('await axios.post(' + '/api/data' + ', datas)')
-                  }
+                  } //console.log(row.original)
                 />
               </Td>
             </Tr>

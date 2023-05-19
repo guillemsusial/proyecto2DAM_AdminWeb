@@ -1,8 +1,7 @@
 import axios from 'axios'
 import React, { useMemo, useState, useEffect } from 'react'
 
-import Tables from './table'
-
+import Tables from '../table'
 
 function Seleccionar() {
   const [data, setData] = useState([])
@@ -26,7 +25,6 @@ function Seleccionar() {
   //     setData(result.data);
   //   })();
   // }, []);
-  
 
   const columns = useMemo(
     () => [

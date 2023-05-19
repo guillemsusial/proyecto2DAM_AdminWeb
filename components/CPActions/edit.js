@@ -1,13 +1,13 @@
 //custom Layout
-import Layout from './layouts/article'
+import Layout from '../layouts/article'
 import React, { useState } from 'react'
 //componentes Form
-import DatosIdentificativos from './CPanelComponets/DatosIdentificativos'
-import EspecificacionesDelMotor from './CPanelComponets/EspecificacionesDelMotor'
-import Pesos from './CPanelComponets/Pesos'
-import Dimensiones from './CPanelComponets/Dimensiones'
-import EspecificacionesDeLaTransmision from './CPanelComponets/EspecificacionesDeLaTransmision'
-import Velocidades from './CPanelComponets/Velocidades'
+import DatosIdentificativos from '../CPanelComponets/DatosIdentificativos'
+import EspecificacionesDelMotor from '../CPanelComponets/EspecificacionesDelMotor'
+import Pesos from '../CPanelComponets/Pesos'
+import Dimensiones from '../CPanelComponets/Dimensiones'
+import EspecificacionesDeLaTransmision from '../CPanelComponets/EspecificacionesDeLaTransmision'
+import Velocidades from '../CPanelComponets/Velocidades'
 //chakra
 import {
   Box,
@@ -23,7 +23,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 //modal
-import ErrorModal from './errorModal'
+import ErrorModal from '../errorModal'
 
 function Editar() {
   //Creamos el estado del formulario (por verificar , es decir False)
@@ -95,7 +95,7 @@ function Editar() {
     }
   }
   //Est constante funciona de Componente para controlar los estilos de los subformularios ,
-  //controllando cual es el estado de de cada uno de los subformularios
+  //controllando cual es el estado de de cada uno de los subformularios en tiempo real
   const SubTabs = props => {
     let styles
     if (props.subFormState) {
@@ -114,7 +114,7 @@ function Editar() {
 
   return (
     <Layout>
-      <Input mb={12} placeholder='Inserte el ID' />
+      <Input mb={12} placeholder="Inserte el ID" />
       {/* Modal */}
       <ErrorModal
         isOpen={isOpen}

@@ -119,7 +119,7 @@ function Dimensiones({ onVerified, verified }) {
                   </InputGroup>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel>Altura</FormLabel>
+                  <FormLabel>Separacion de las ruedas</FormLabel>
                   <InputGroup bg={bgInput} borderRadius="lg">
                     <InputLeftElement pointerEvents="none">
                       <BsPencil />
