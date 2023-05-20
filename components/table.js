@@ -13,16 +13,20 @@ import {
 import { React, useState } from 'react'
 import { useTable } from 'react-table'
 import { RiEdit2Line } from 'react-icons/ri'
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaSyncAlt } from 'react-icons/fa'
 import axios from 'axios';
 import ErrorModal from './errorModal'
 import { Text, Box, Button, useDisclosure } from '@chakra-ui/react'
 import Layout from './layouts/article'
 
-export default function Tables({ columns, data }) {
+export default function Tables({ columns, data, refreshData }) {
   //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [ confirmDelete, setconfirmDelete ] = useState(false)
+  const [ ModelDelete, setModelDelete ] = useState()
+
+  const handleRefresh = async () => {
+    await refreshData();
+  };
 
   // Use the useTable Hook to send the columns and data to build the table
   const {
@@ -51,18 +55,31 @@ export default function Tables({ columns, data }) {
           text={
             <>
               <Text>
-                Esta seguro de eliminar este vehiculo?:
+                Esta seguro de eliminar este vehiculo?
               </Text>
               <br />
-              {/* FALTA/MEJORA que te ponga el nombre del coche actual*/}
+              <Text>{ModelDelete}</Text>
+              <br />
               <Box align="center">
-                <Button colorScheme="teal" id="submit-D" type="submit" onClick={onClose()}>
+                <Button colorScheme="teal" id="submit-D" type="submit" onClick={() => {
+                  axios.post('/api/deleteOne', ModelDelete )
+                  .then(() => {
+                    console.log("Eliminado correctamente")
+                    onClose()
+                    handleRefresh()
+                  })
+                  .catch((error) => console.log(error))
+                }}>
                   SIS
                 </Button>
               </Box>
             </>
           }
         />
+      <Box align="right">
+        <IconButton colorScheme='cyan' icon={<FaSyncAlt />} onClick={() => handleRefresh()}/>
+      </Box>
+
       <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map(headerGroup => (
@@ -106,15 +123,9 @@ export default function Tables({ columns, data }) {
                       //window.alert('await axios.post(' + '/api/data' + ', datas)')
                       {
                         onOpen()
-                        if(confirmDelete){
-                          axios.post('/api/deleteOne', row.original.nombre)
-                          .then(() => {
-                            console.log("Eliminado correctamente")
-                            setconfirmDelete(false)
-                          })
-                          .catch((error) => console.log(error))
-                        }
-                        console.log(confirmDelete)
+                        setModelDelete(row.original.nombre)
+                        
+                        //console.log(ModelDelete)
                       }
                     }
                   />

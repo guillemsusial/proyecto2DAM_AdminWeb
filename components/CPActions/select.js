@@ -1,30 +1,24 @@
-import axios from 'axios'
-import React, { useMemo, useState, useEffect } from 'react'
-
-import Tables from '../table'
+import axios from 'axios';
+import React, { useMemo, useState, useEffect } from 'react';
+import Tables from '../table';
 
 function Seleccionar() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     const datas = {
       dataSource: 'Proyecto2DAM',
       database: 'CarWikiAR',
       collection: 'cars'
-    }
-    ;(async () => {
-      const result = await axios.post('/api/selectAll', datas)
+    };
 
-      setData(result.data.documents)
-    })()
-  }, [])
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const result = await axios("https://api.tvmaze.com/search/shows?q=snow");
-  //     setData(result.data);
-  //   })();
-  // }, []);
+    const result = await axios.post('/api/selectAll', datas);
+    setData(result.data.documents);
+  };
 
   const columns = useMemo(
     () => [
@@ -56,13 +50,13 @@ function Seleccionar() {
       }
     ],
     []
-  )
+  );
 
   return (
     <div className="App">
-      <Tables columns={columns} data={data} />
+      <Tables columns={columns} data={data} refreshData={fetchData} />
     </div>
-  )
+  );
 }
 
-export default Seleccionar
+export default Seleccionar;
