@@ -6,7 +6,8 @@ import {
   ModalBody,
   Text,
   ModalFooter,
-  Button
+  Button,
+  Box
 } from '@chakra-ui/react'
 
 function ErrorModal({ isOpen, onClose, overlay, text }) {
@@ -16,7 +17,7 @@ function ErrorModal({ isOpen, onClose, overlay, text }) {
       <ModalContent bg={'red.500'}>
         <ModalHeader>Error</ModalHeader>
         <ModalBody>
-          <Text>{text}</Text>
+          <Box>{text}</Box>
         </ModalBody>
         <ModalFooter>
           <Button onClick={onClose} colorScheme="gray">
