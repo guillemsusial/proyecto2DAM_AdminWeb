@@ -190,6 +190,7 @@ function Editar({ content }) {
           <TabPanel>
             <Dimensiones
               verified={Ddimensiones}
+              contents={Contents ? Contents.dimensiones : null}
               onVerified={data => {
                 setDdimensiones(!Ddimensiones)
                 verify(data, 'dimensiones')
@@ -210,6 +211,7 @@ function Editar({ content }) {
             {' '}
             <EspecificacionesDeLaTransmision
               verified={DespecificacionesDeLaTransmision}
+              contents={Contents ? Contents.especificaciones_de_la_transmision : null}
               onVerified={data => {
                 setDespecificacionesDeLaTransmision(
                   !DespecificacionesDeLaTransmision

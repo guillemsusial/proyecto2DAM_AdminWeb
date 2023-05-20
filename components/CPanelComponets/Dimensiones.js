@@ -9,16 +9,16 @@ import {
   InputLeftElement,
   Grid,
   Select,
-  useColorModeValue,  
+  useColorModeValue
 } from '@chakra-ui/react'
 import ReEditar from '../ReEditar'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 
-function Dimensiones({ onVerified, verified }) {
+function Dimensiones({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
-
+  const [Contents] = useState(contents)
   const {
     register,
     //formState: { errors },
@@ -51,13 +51,16 @@ function Dimensiones({ onVerified, verified }) {
                   <FormLabel>Unidad de Distancia</FormLabel>
                   <InputGroup bg={bgInput} borderRadius="lg">
                     <Select
-                      defaultValue={'mm'}
+                      defaultValue={
+                        Contents ? Contents.unidad_de_distancia : 'mm'
+                      }
                       size="md"
                       {...register('unidad_de_distancia', {
                         required: true
                       })}
                     >
                       <option>mm</option>
+                      <option>{Contents.unidad_de_distancia}</option>
                     </Select>
                   </InputGroup>
                 </FormControl>
@@ -70,6 +73,7 @@ function Dimensiones({ onVerified, verified }) {
                     <Input
                       type="number"
                       minLength={1}
+                      defaultValue={Contents ? Contents.longitud : ''}
                       maxLength={15}
                       placeholder="Required"
                       size="md"
@@ -89,6 +93,7 @@ function Dimensiones({ onVerified, verified }) {
                     <Input
                       type="number"
                       minLength={1}
+                      defaultValue={Contents ? Contents.anchura : ''}
                       maxLength={15}
                       placeholder="Required"
                       size="md"
@@ -108,6 +113,7 @@ function Dimensiones({ onVerified, verified }) {
                     <Input
                       type="number"
                       minLength={1}
+                      defaultValue={Contents ? Contents.altura : ''}
                       maxLength={15}
                       placeholder="Required"
                       size="md"
@@ -128,6 +134,9 @@ function Dimensiones({ onVerified, verified }) {
                       type="number"
                       minLength={1}
                       maxLength={15}
+                      defaultValue={
+                        Contents ? Contents.separacion_de_las_ruedas : ''
+                      }
                       placeholder="Required"
                       size="md"
                       {...register('separacion_de_las_ruedas', {
@@ -141,7 +150,11 @@ function Dimensiones({ onVerified, verified }) {
                   <FormLabel>Unidad de Combustible</FormLabel>
                   <InputGroup bg={bgInput} borderRadius="lg">
                     <Select
-                      defaultValue={'l'}
+                      defaultValue={
+                        Contents
+                          ? Contents.combustible.unidad_del_combustible
+                          : 'l'
+                      }
                       size="md"
                       {...register('combustible.unidad_del_combustible', {
                         required: true
@@ -161,6 +174,11 @@ function Dimensiones({ onVerified, verified }) {
                       type="number"
                       minLength={1}
                       maxLength={15}
+                      defaultValue={
+                        Contents
+                          ? Contents.combustible.capacidad_de_combustible
+                          : ''
+                      }
                       placeholder="Required"
                       size="md"
                       {...register('combustible.capacidad_de_combustible', {
