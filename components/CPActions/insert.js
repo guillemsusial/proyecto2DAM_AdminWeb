@@ -23,6 +23,7 @@ import EspecificacionesDeLaTransmision from '../CPanelComponets/Especificaciones
 import Velocidades from '../CPanelComponets/Velocidades'
 import ErrorModal from '../errorModal'
 import axios from 'axios'
+import Nombre from '../CPanelComponets/Nombre'
 
 //modal
 
@@ -40,6 +41,18 @@ export default function Basic({ variant }) {
     {
       label: 'Step 1',
       content: (
+        <Nombre
+          verified={CorrectF}
+          onVerified={data => {
+            setCorrectF(!CorrectF)
+            verify(data, 'nombre')
+          }}
+        />
+      )
+    },
+    {
+      label: 'Step 2',
+      content: (
         <DatosIdentificativos
           verified={CorrectF}
           onVerified={data => {
@@ -50,7 +63,7 @@ export default function Basic({ variant }) {
       )
     },
     {
-      label: 'Step 2',
+      label: 'Step 3',
       content: (
         <EspecificacionesDelMotor
           verified={CorrectF}
@@ -62,7 +75,7 @@ export default function Basic({ variant }) {
       )
     },
     {
-      label: 'Step 3',
+      label: 'Step 4',
       content: (
         <EspecificacionesDeLaTransmision
           verified={CorrectF}
@@ -74,7 +87,7 @@ export default function Basic({ variant }) {
       )
     },
     {
-      label: 'Step 4',
+      label: 'Step 5',
       content: (
         <Velocidades
           verified={CorrectF}
@@ -86,7 +99,7 @@ export default function Basic({ variant }) {
       )
     },
     {
-      label: 'Step 5',
+      label: 'Step 6',
       content: (
         <Dimensiones
           verified={CorrectF}
@@ -98,7 +111,7 @@ export default function Basic({ variant }) {
       )
     },
     {
-      label: 'Step 6',
+      label: 'Step 7',
       content: (
         <Pesos
           verified={CorrectF}
@@ -125,6 +138,7 @@ export default function Basic({ variant }) {
   // Esta constante funciona como StringBuilder , acumulando todas las
   // respuestas de los fomularios , siempre y cuando los formularios esten validados
   const data = prod => {
+    console.log(prod)
     let updatedValue = {}
     updatedValue = prod
     setFinalJson(shopCart => ({
@@ -138,17 +152,24 @@ export default function Basic({ variant }) {
   const onsubmit = async () => {
     console.log(FinalJson)
     try {
-      const response = await axios.post('/api/insertOne', { FinalJson });
+      const response = await axios.post('/api/insertOne', { FinalJson })
       console.log(response)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+    setFinalJson()
+  }
   // const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
     if (event != null || !(event.type === 'click')) {
-      event = {
-        [name]: event
+      if (name == 'nombre') {
+        event = {
+          nombre: event.nombre
+        }
+      } else {
+        event = {
+          [name]: event
+        }
       }
       data(event)
     }
@@ -227,7 +248,7 @@ export default function Basic({ variant }) {
                 CorrectF
                   ? (nextStep(),
                     setCorrectF(!CorrectF),
-                    isLastStep ? onsubmit() : "")
+                    isLastStep ? onsubmit() : '')
                   : onOpen()
               }
             >
