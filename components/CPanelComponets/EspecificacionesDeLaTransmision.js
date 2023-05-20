@@ -8,20 +8,20 @@ import {
   InputGroup,
   InputLeftElement,
   Grid,
-  useColorModeValue,
-  
+  useColorModeValue
 } from '@chakra-ui/react'
 import ReEditar from '../ReEditar'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 
 export default function EspecificacionesDeLaTransmision({
   onVerified,
-  verified
+  verified,
+  contents
 }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
-
+  const [Contents] = useState(contents)
   const { register, handleSubmit } = useForm()
 
   return (
@@ -48,6 +48,9 @@ export default function EspecificacionesDeLaTransmision({
                     <Input
                       type="text"
                       minLength={3}
+                      defaultValue={
+                        Contents ? Contents.tipo_de_transmision : ''
+                      }
                       maxLength={50}
                       placeholder="Required"
                       // name="user_email"
@@ -66,6 +69,7 @@ export default function EspecificacionesDeLaTransmision({
                     <Input
                       type="number"
                       min={0}
+                      defaultValue={Contents ? Contents.numero_de_marchas : ''}
                       placeholder="Required"
                       // name="user_email"
                       {...register('numero_de_marchas', {
