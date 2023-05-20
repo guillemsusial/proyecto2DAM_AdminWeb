@@ -6,21 +6,21 @@ import { Button } from '@chakra-ui/button';
 import axios from 'axios';
 
 export default function Delete() {
-  const [nombre, setNombre] = useState('');
+  const [ModelDelete, setModelDelete] = useState('');
   const [error, setError] = useState('');
   const [result, setResult] = useState('');
 
   const onSubmit = async () => {
     try {
-      if (!nombre) {
+      if (!ModelDelete) {
         setError('Por favor, ingrese un nombre');
         return;
       }
   
       setError('');
-      window.alert(nombre);
+      window.alert(ModelDelete);
   
-      const response = await axios.post('/api/deleteOne', { nombre });
+      const response = await axios.post('/api/deleteOne', { ModelDelete });
       setResult(response);
     } catch (error) {
       setError('Error al enviar la solicitud: ' + error.response.data);
@@ -29,12 +29,12 @@ export default function Delete() {
   };
 
   const handleInputChange = (event) => {
-    setNombre(event.target.value);
+    setModelDelete(event.target.value);
   };
 
   return (
     <Layout>
-      <Input mb={12} placeholder="Inserte el nombre:" value={nombre} onChange={handleInputChange} />
+      <Input mb={12} placeholder="Inserte el nombre:" value={ModelDelete} onChange={handleInputChange} />
       {error && <p>{error}</p>}
       <Box align="center">
         <Button w={150} h={12} colorScheme="teal" size="lg" onClick={onSubmit}>

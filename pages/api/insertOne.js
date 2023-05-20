@@ -10,13 +10,13 @@ app.post('/api/insertOne', async (req, res) => {
     'j4hxTuaF2IokPNQYhBoo7OBeVEk8WTEI7JeMrByQQ6LLnAPglV7AOLe3CSNZ52yq'
   console.log(req.body)
 
-  const { document } = req.body
+  const document = req.body.document
 
   const datas = {
     dataSource: 'Proyecto2DAM',
     database: 'CarWikiAR',
     collection: 'cars',
-    document: [document]
+    document: document
   }
 
   try {

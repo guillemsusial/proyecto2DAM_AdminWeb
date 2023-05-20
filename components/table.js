@@ -57,7 +57,7 @@ export default function Tables({ columns, data, refreshData }) {
                 type="submit"
                 onClick={() => {
                   axios
-                    .post('/api/deleteOne', ModelDelete)
+                    .post('/api/deleteOne', {ModelDelete})
                     .then(() => {
                       console.log('Eliminado correctamente')
                       onClose()

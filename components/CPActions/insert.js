@@ -130,7 +130,7 @@ export default function Basic({ variant }) {
   const bg = useColorModeValue('gray.200', 'gray.700')
 
   //En este estado se guarda el JSON que mas adelante mandaremos a la BBDD
-  const [FinalJson, setFinalJson] = useState({})
+  const [document, setdocument] = useState({})
 
   //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -141,7 +141,7 @@ export default function Basic({ variant }) {
     console.log(prod)
     let updatedValue = {}
     updatedValue = prod
-    setFinalJson(shopCart => ({
+    setdocument(shopCart => ({
       ...shopCart,
       ...updatedValue
     }))
@@ -150,14 +150,14 @@ export default function Basic({ variant }) {
   //una vez finalizamos el fomulario realizamos una llamada axios a una api express(error CORS)
   //y insertamos el nuevo modelo.
   const onsubmit = async () => {
-    console.log(FinalJson)
+    console.log(document)
     try {
-      const response = await axios.post('/api/insertOne', { FinalJson })
+      const response = await axios.post('/api/insertOne', { document })
       console.log(response)
     } catch (error) {
       console.error(error)
     }
-    setFinalJson()
+    setdocument()
   }
   // const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
