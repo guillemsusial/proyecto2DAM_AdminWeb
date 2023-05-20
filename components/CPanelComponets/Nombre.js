@@ -11,13 +11,14 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 import ReEditar from '../ReEditar'
 
-function Nombre({ onVerified, verified }) {
+function Nombre({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
+  const [Contents] = useState(contents)
 
   const {
     register,
@@ -58,6 +59,7 @@ function Nombre({ onVerified, verified }) {
                       minLength={3}
                       maxLength={50}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents[0] : ''}
                       // name="user_email"
                       {...register('nombre', {
                         required: true
@@ -76,6 +78,7 @@ function Nombre({ onVerified, verified }) {
                       minLength={5}                      
                       maxLength={50}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents[1] : ''}
                       // name="user_email"
                       {...register('url', {
                         required: true

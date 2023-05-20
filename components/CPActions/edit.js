@@ -8,6 +8,7 @@ import Pesos from '../CPanelComponets/Pesos'
 import Dimensiones from '../CPanelComponets/Dimensiones'
 import EspecificacionesDeLaTransmision from '../CPanelComponets/EspecificacionesDeLaTransmision'
 import Velocidades from '../CPanelComponets/Velocidades'
+import Nombre from '../CPanelComponets/Nombre'
 //chakra
 import {
   Box,
@@ -33,6 +34,7 @@ function Editar({ content }) {
   const [DespecificacionesMotor, setDespecificacionesMotor] = useState(true)
   const [Ddimensiones, setDdimensiones] = useState(true)
   const [Dpesos, setDpesos] = useState(true)
+  const [Nombres, setNombres] = useState(true)
   const [
     DespecificacionesDeLaTransmision,
     setDespecificacionesDeLaTransmision
@@ -131,6 +133,7 @@ function Editar({ content }) {
           mb="0.1em"
           _selected={{ fil: 'drop-shadow(2px 4px 6px black)' }}
         >
+          <SubTabs subFormState={Nombre} name={'Nombre'} />
           <SubTabs subFormState={Dindentidad} name={'Datos Identificativos'} />
           <SubTabs
             subFormState={DespecificacionesMotor}
@@ -153,6 +156,17 @@ function Editar({ content }) {
         <TabPanels>
           <TabPanel>
             {' '}
+            <Nombre
+              verified={Nombres}
+              contents={Contents ? [Contents.nombre, Contents.url] : null}
+              onVerified={data => {
+                setNombres(!Nombres)
+                verify(data, 'nombre')
+              }}
+            />
+          </TabPanel>
+          <TabPanel>
+            {' '}
             <DatosIdentificativos
               verified={Dindentidad}
               contents={Contents ? Contents.datos_identificativos : null}
@@ -166,6 +180,7 @@ function Editar({ content }) {
             {' '}
             <EspecificacionesDelMotor
               verified={DespecificacionesMotor}
+              contents={Contents ? Contents.especificaciones_del_motor : null}
               onVerified={data => {
                 setDespecificacionesMotor(!DespecificacionesMotor)
                 verify(data, 'especificaciones_del_motor')
@@ -184,6 +199,7 @@ function Editar({ content }) {
           <TabPanel>
             <Pesos
               verified={Dpesos}
+              contents={Contents ? Contents.pesos : null}
               onVerified={data => {
                 setDpesos(!Dpesos)
                 verify(data, 'pesos')
@@ -206,6 +222,7 @@ function Editar({ content }) {
             {' '}
             <Velocidades
               verified={Dvelocidades}
+              contents={Contents ? Contents.velocidades : null}
               onVerified={data => {
                 setDvelocidades(!Dvelocidades)
                 verify(data, 'velocidades')

@@ -12,13 +12,13 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import ReEditar from '../ReEditar'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 
-export default function Pesos({ onVerified, verified }) {
+export default function Pesos({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
-
+  const [Contents] = useState(contents)
   const { register, handleSubmit } = useForm()
 
   return (
@@ -40,7 +40,7 @@ export default function Pesos({ onVerified, verified }) {
                   <FormLabel>Unidad de Peso</FormLabel>
                   <InputGroup bg={bgInput} borderRadius="lg">
                     <Select
-                      defaultValue={'kg'}
+                      defaultValue={Contents ? Contents.unidad_del_peso : 'kg'}
                       size="md"
                       {...register('unidad_del_peso', {
                         required: true
@@ -61,6 +61,7 @@ export default function Pesos({ onVerified, verified }) {
                       minLength={1}
                       maxLength={5}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents.peso_en_vacio : ''}
                       // name="user_email"
                       {...register('peso_en_vacio', {
                         required: true

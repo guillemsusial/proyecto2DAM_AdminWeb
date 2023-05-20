@@ -12,13 +12,13 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import ReEditar from '../ReEditar'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 
-export default function Velocidades({ onVerified, verified }) {
+export default function Velocidades({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
-
+  const [Contents] = useState(contents)
   const { register, handleSubmit } = useForm()
 
   return (
@@ -46,6 +46,7 @@ export default function Velocidades({ onVerified, verified }) {
                       type="number"
                       min={0}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents.velocidad_maxima.velocidad_maxima : ''}
                       // name="user_email"
                       {...register('velocidad_maxima.velocidad_maxima', {
                         required: true
@@ -57,7 +58,7 @@ export default function Velocidades({ onVerified, verified }) {
                   <FormLabel>Unidad de Velocidad</FormLabel>
                   <InputGroup bg={bgInput} borderRadius="lg">
                     <Select
-                      defaultValue={'km/h'}
+                      defaultValue={Contents ? Contents.velocidad_maxima.unidad_de_velocidad : 'km/h'}
                       size="md"
                       {...register('velocidad_maxima.unidad_de_velocidad', {
                         required: true
@@ -77,6 +78,7 @@ export default function Velocidades({ onVerified, verified }) {
                       type="number"
                       min={0}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents.aceleracion["0-100_km/h"] : ''}
                       // name="user_email"
                       {...register('aceleracion.0-100_km/h', {
                         required: true
@@ -94,6 +96,7 @@ export default function Velocidades({ onVerified, verified }) {
                       type="text"
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.aceleracion.unidad_de_aceleracion : ''}
                       {...register('aceleracion.unidad_de_aceleracion', {
                         required: true
                       })}

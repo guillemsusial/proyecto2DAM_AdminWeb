@@ -18,7 +18,8 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 
-export default function EspecificacionesDelMotor({ onVerified, verified }) {
+export default function EspecificacionesDelMotor({ onVerified, verified, contents }) {
+  const [Contents] = useState(contents)
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
   const [unidad_de_potencia, setUnidad_de_potencia] = useState()
   useEffect(() => {
@@ -60,6 +61,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       minLength={3}
                       maxLength={50}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents.fabricante_del_motor : ''}
                       // name="user_email"
                       {...register('fabricante_del_motor', {
                         required: true
@@ -78,6 +80,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       minLength={3}
                       maxLength={50}
                       placeholder="Required"
+                      defaultValue={Contents ? Contents.tipo_de_motor : ''}
                       // name="user_email"
                       {...register('tipo_de_motor', {
                         required: true
@@ -97,6 +100,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={50}
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.disposicion_de_los_cilindros : ''}
                       {...register('disposicion_de_los_cilindros', {
                         required: true
                       })}
@@ -109,6 +113,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                     <Select
                       placeholder="Seleccionar"
                       size="md"
+                      defaultValue={Contents ? Contents.tipo_de_combustible : ''}
                       {...register('tipo_de_combustible', {
                         required: true
                       })}
@@ -126,6 +131,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                     <Select
                       placeholder="Seleccionar"
                       size="md"
+                      defaultValue={Contents ? Contents.sistema_de_inyeccion : ''}
                       {...register('sistema_de_inyeccion', {
                         required: true
                       })}
@@ -141,6 +147,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                     <Select
                       placeholder="Seleccionar"
                       size="md"
+                      defaultValue={Contents ? Contents.tipo_de_aspiracion : ''}
                       {...register('tipo_de_aspiracion', {
                         required: true
                       })}
@@ -163,6 +170,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       // name="user_name"
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.valvulas_por_cilindro : ''}
                       {...register('valvulas_por_cilindro', {
                         required: true
                       })}
@@ -182,6 +190,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={2}
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.valvulas_totales : ''}
                       {...register('valvulas_totales', {
                         required: true
                       })}
@@ -194,7 +203,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                     <Select
                       //falta: setear la variable default en state para relacion peso/potencia(demomento hardcoded)
                       //onChange={setUnidad_de_potencia()}
-                      defaultValue={'hp'}
+                      defaultValue={Contents ? Contents.potencia.unidad_de_potencia : 'hp'}
                       size="md"
                       {...register('potencia.unidad_de_potencia', {
                         required: true
@@ -215,6 +224,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={2}
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.potencia.potencia : ''}
                       {...register('potencia.potencia', {
                         required: true
                       })}
@@ -232,6 +242,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={2}
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.potencia.rpm : ''}
                       {...register('potencia.rpm', {
                         required: true
                       })}
@@ -250,11 +261,14 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={2}
                       placeholder="Required"
                       size="md"
+                      defaultValue={//FALTA: sample text = 5766547 kg/hp (cortar 6 caracteres desde detras)
+                        Contents ? Contents["relacion_peso/potencia"] : ''
+                      }
                       {...register('relacion_peso/potencia', {
                         required: true
                       })}
                     />
-                    <InputRightAddon> kg/hp</InputRightAddon>
+                    {/* <InputRightAddon> kg/hp</InputRightAddon> */}
                   </InputGroup>
                 </FormControl>
                 <FormControl isRequired>
@@ -263,7 +277,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                     <Select
                       //falta: setear la variable default en state para relacion peso/potencia(demomento hardcoded)
                       //onChange={setUnidad_de_potencia()}
-                      defaultValue={'Nm'}
+                      defaultValue={Contents ? Contents.par.unidad_de_par : 'Nm'}
                       size="md"
                       {...register('par.unidad_de_par', {
                         required: true
@@ -284,6 +298,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={6}
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.par.par : 'Nm'}
                       {...register('par.par', {
                         required: true
                       })}
@@ -301,6 +316,7 @@ export default function EspecificacionesDelMotor({ onVerified, verified }) {
                       maxLength={2}
                       placeholder="Required"
                       size="md"
+                      defaultValue={Contents ? Contents.par.rpm : ''}
                       {...register('par.rpm', {
                         required: true
                       })}
