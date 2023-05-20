@@ -1,34 +1,30 @@
-import axios from 'axios';
-import React, { useMemo, useState, useEffect } from 'react';
-import Tables from '../table';
+import axios from 'axios'
+import React, { useMemo, useState, useEffect } from 'react'
+import Tables from '../table'
 
 function Seleccionar() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const fetchData = async () => {
     const datas = {
       dataSource: 'Proyecto2DAM',
       database: 'CarWikiAR',
       collection: 'cars'
-    };
+    }
 
-    const result = await axios.post('/api/selectAll', datas);
-    setData(result.data.documents);
-  };
+    const result = await axios.post('/api/selectAll', datas)
+    setData(result.data.documents)
+  }
 
   const columns = useMemo(
     () => [
       {
         Header: 'Documents',
         columns: [
-          {
-            Header: 'ID',
-            accessor: '_id'
-          },
           {
             Header: 'Nombre',
             accessor: 'nombre'
@@ -50,13 +46,13 @@ function Seleccionar() {
       }
     ],
     []
-  );
+  )
 
   return (
     <div className="App">
       <Tables columns={columns} data={data} refreshData={fetchData} />
     </div>
-  );
+  )
 }
 
-export default Seleccionar;
+export default Seleccionar
