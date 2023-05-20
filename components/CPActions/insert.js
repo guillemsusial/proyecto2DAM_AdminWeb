@@ -164,7 +164,8 @@ export default function Basic({ variant }) {
     if (event != null || !(event.type === 'click')) {
       if (name == 'nombre') {
         event = {
-          nombre: event.nombre
+          nombre: event.nombre,
+          url:event.url
         }
       } else {
         event = {

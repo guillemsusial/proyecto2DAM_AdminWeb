@@ -9,28 +9,23 @@ import {
   InputLeftElement,
   Grid,
   Select,
-  useColorModeValue,  
+  useColorModeValue
 } from '@chakra-ui/react'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsPencil } from 'react-icons/bs'
 import ReEditar from '../ReEditar'
 
-function DatosIdentificativos({ onVerified, verified }) {
+function DatosIdentificativos({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
-
+  const [Contents] = useState(contents)
+  
   const {
     register,
     //formState: { errors },
     handleSubmit
   } = useForm()
-
-  //console.log(errors)
-  // const onSubmit = values => {
-  //  console.log(data)
-  //  event.preventDefault();
-  // }
 
   return (
     <Box
@@ -53,6 +48,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                   <InputGroup bg={bgInput} borderRadius="lg">
                     <Select
                       placeholder="Select country"
+                      defaultValue={Contents ? Contents.pais_de_origen : ''}
                       size="md"
                       {...register('pais_de_origen', {
                         required: true
@@ -60,6 +56,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                     >
                       <option>United Arab Emirates</option>
                       <option>Nigeria</option>
+                      <option>{Contents.pais_de_origen}</option>
                     </Select>
                   </InputGroup>
                 </FormControl>
@@ -72,6 +69,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                     </InputLeftElement>
                     <Input
                       type="text"
+                      defaultValue={Contents ? Contents.fabricante : ''}
                       minLength={3}
                       maxLength={50}
                       placeholder="Required"
@@ -90,6 +88,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                     </InputLeftElement>
                     <Input
                       type="text"
+                      defaultValue={Contents ? Contents.modelo : ''}
                       minLength={3}
                       maxLength={50}
                       placeholder="Required"
@@ -105,8 +104,9 @@ function DatosIdentificativos({ onVerified, verified }) {
                       <BsPencil />
                     </InputLeftElement>
                     <Input
-                      type="number"
+                      type="text"
                       minLength={1}
+                      defaultValue={Contents ? Contents.generacion : ''}
                       maxLength={15}
                       placeholder="Required"
                       size="md"
@@ -126,6 +126,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                     <Input
                       type="text"
                       minLength={3}
+                      defaultValue={Contents ? Contents.serie : ''}
                       errorBorderColor="red.300"
                       //name="user_name"
                       placeholder="Required"
@@ -144,6 +145,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                     <Input
                       errorBorderColor="red.300"
                       type="number"
+                      defaultValue={Contents ? Contents.años_de_fabricacion.año_de_inicio : ''}
                       min={1900}
                       max={2050}
                       placeholder="Required"
@@ -164,6 +166,7 @@ function DatosIdentificativos({ onVerified, verified }) {
                     <Input
                       errorBorderColor="red.300"
                       type="number"
+                      defaultValue={Contents ? Contents.años_de_fabricacion.año_de_finalizacion : ''}
                       min={1900}
                       max={2050}
                       placeholder="Required"

@@ -10,11 +10,23 @@ import axios from 'axios'
 import ErrorModal from './errorModal'
 import { Text, Box, Button, useDisclosure } from '@chakra-ui/react'
 import Layout from './layouts/article'
+import Editar from './CPActions/edit'
 
 export default function Tables({ columns, data, refreshData }) {
   //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose
+  } = useDisclosure()
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose
+  } = useDisclosure()
+
   const [ModelDelete, setModelDelete] = useState()
+  const [AllData, setAllDAta] = useState()
 
   const handleRefresh = async () => {
     await refreshData()
@@ -39,9 +51,9 @@ export default function Tables({ columns, data, refreshData }) {
   return (
     <Layout>
       <ErrorModal
-        isOpen={isOpen}
+        isOpen={isDeleteOpen}
         onClose={() => {
-          onClose()
+          onDeleteClose()
         }}
         //falta un diccionario de errores
         text={
@@ -57,10 +69,10 @@ export default function Tables({ columns, data, refreshData }) {
                 type="submit"
                 onClick={() => {
                   axios
-                    .post('/api/deleteOne', {ModelDelete})
+                    .post('/api/deleteOne', { ModelDelete })
                     .then(() => {
                       console.log('Eliminado correctamente')
-                      onClose()
+                      onDeleteClose()
                       handleRefresh()
                     })
                     .catch(error => console.log(error))
@@ -71,6 +83,17 @@ export default function Tables({ columns, data, refreshData }) {
             </Box>
           </>
         }
+      />
+      <ErrorModal
+        isOpen={isEditOpen}
+        large={'full'}
+        header={'Edit'}
+        color={'#1d222c'}
+        onClose={() => {
+          onEditClose()
+        }}
+        //falta un diccionario de errores
+        text={<Editar content={AllData} />}
       />
       <Box align="right">
         <IconButton
@@ -109,10 +132,12 @@ export default function Tables({ columns, data, refreshData }) {
                     aria-label="Call Segun"
                     size="lg"
                     icon={<RiEdit2Line />}
-                    onClick={() =>
+                    onClick={() => {
+                      onEditOpen()
+                      setAllDAta(row.original)
                       //window.alert('await axios.post(' + '/api/data' + ', datas)')
-                      console.log(row.original)
-                    }
+                      //console.log(row.original)
+                    }}
                   />
                 </Td>
                 <Td>
@@ -124,7 +149,7 @@ export default function Tables({ columns, data, refreshData }) {
                     onClick={() =>
                       //window.alert('await axios.post(' + '/api/data' + ', datas)')
                       {
-                        onOpen()
+                        onDeleteOpen()
                         setModelDelete(row.original.nombre)
 
                         //console.log(ModelDelete)

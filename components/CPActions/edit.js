@@ -11,8 +11,7 @@ import Velocidades from '../CPanelComponets/Velocidades'
 //chakra
 import {
   Box,
-  Button,
-  Input,
+  Button,  
   ModalOverlay,
   Tab,
   TabIndicator,
@@ -25,7 +24,10 @@ import {
 //modal
 import ErrorModal from '../errorModal'
 
-function Editar() {
+function Editar({ content }) {
+  
+  const [Contents] = useState(content)
+ 
   //Creamos el estado del formulario (por verificar , es decir False)
   const [Dindentidad, setDidentidad] = useState(true)
   const [DespecificacionesMotor, setDespecificacionesMotor] = useState(true)
@@ -114,7 +116,7 @@ function Editar() {
 
   return (
     <Layout>
-      <Input mb={12} placeholder="Inserte el ID" />
+      
       {/* Modal */}
       <ErrorModal
         isOpen={isOpen}
@@ -153,6 +155,7 @@ function Editar() {
             {' '}
             <DatosIdentificativos
               verified={Dindentidad}
+              contents={Contents ? Contents.datos_identificativos : null}
               onVerified={data => {
                 setDidentidad(!Dindentidad)
                 verify(data, 'datos_identificativos')

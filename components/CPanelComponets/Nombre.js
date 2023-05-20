@@ -7,7 +7,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Grid, 
+  Grid,
   useColorModeValue
 } from '@chakra-ui/react'
 
@@ -60,6 +60,24 @@ function Nombre({ onVerified, verified }) {
                       placeholder="Required"
                       // name="user_email"
                       {...register('nombre', {
+                        required: true
+                      })}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel>URl</FormLabel>
+                  <InputGroup bg={bgInput} borderRadius="lg">
+                    <InputLeftElement pointerEvents="none">
+                      <BsPencil />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      minLength={5}                      
+                      maxLength={50}
+                      placeholder="Required"
+                      // name="user_email"
+                      {...register('url', {
                         required: true
                       })}
                     />
