@@ -23,12 +23,12 @@ function Index() {
             <Tab _selected={{ color: 'white', bg: 'green.500' }}>
               <AiOutlinePlusCircle />
             </Tab>
-            <Tab _selected={{ color: 'white', bg: 'yellow.500' }}>
+            {/* <Tab _selected={{ color: 'white', bg: 'yellow.500' }}>
               <FaPencilAlt />
             </Tab>
             <Tab _selected={{ color: 'white', bg: 'red.500' }}>
               <MdDelete />
-            </Tab>
+            </Tab> */}
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -37,12 +37,12 @@ function Index() {
             <TabPanel>
               <Insert />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <Editar />
             </TabPanel>
             <TabPanel>
               <Delete />
-            </TabPanel>
+            </TabPanel> */}
           </TabPanels>
         </Tabs>
       </Box>
