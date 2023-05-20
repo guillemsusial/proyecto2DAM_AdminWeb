@@ -22,6 +22,7 @@ import EspecificacionesDelMotor from '../CPanelComponets/EspecificacionesDelMoto
 import EspecificacionesDeLaTransmision from '../CPanelComponets/EspecificacionesDeLaTransmision'
 import Velocidades from '../CPanelComponets/Velocidades'
 import ErrorModal from '../errorModal'
+import axios from 'axios'
 
 //modal
 
@@ -134,9 +135,15 @@ export default function Basic({ variant }) {
 
   //una vez finalizamos el fomulario realizamos una llamada axios a una api express(error CORS)
   //y insertamos el nuevo modelo.
-  function onsubmit() {
+  const onsubmit = async () => {
     console.log(FinalJson)
-  }
+    try {
+      const response = await axios.post('/api/insertOne', { FinalJson });
+      console.log(response)
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
     if (event != null || !(event.type === 'click')) {
@@ -220,7 +227,7 @@ export default function Basic({ variant }) {
                 CorrectF
                   ? (nextStep(),
                     setCorrectF(!CorrectF),
-                    isLastStep ? onsubmit() : console.log('error'))
+                    isLastStep ? onsubmit() : "")
                   : onOpen()
               }
             >
