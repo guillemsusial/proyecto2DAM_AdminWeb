@@ -114,13 +114,12 @@ function Navbar(props) {
                 <NextLink href={'/'} passHref>
                   <MenuItem as={Link}>PanelControl</MenuItem>
                 </NextLink>
-                <NextLink href={'/insert'} passHref>
+                <NextLink href={'/Home'} passHref>
                   <MenuItem as={Link}>Insert</MenuItem>
                 </NextLink>
                 <NextLink href={'/ModelViewer'} passHref>
                   <MenuItem as={Link}>ModelViewer</MenuItem>
                 </NextLink>
-                
               </MenuList>
             </Menu>
           </Box>
