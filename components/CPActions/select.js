@@ -5,23 +5,22 @@ import Tables from '../table'
 function Seleccionar() {
   //aqui alojaremos los datos que recibimos de la base de datos
   const [data, setData] = useState([])
-  
+
   useEffect(() => {
     fetchData()
   }, [])
   //esta funcion asyncrona nos trae todos los modelos de la base de datos
-  //y los inserta en la constante data 
+  //y los inserta en la constante data
   const fetchData = async () => {
     const datas = {
       dataSource: 'Proyecto2DAM',
       database: 'CarWikiAR',
       collection: 'cars'
     }
-
     const result = await axios.post('/api/selectAll', datas)
     setData(result.data.documents)
   }
-  //esta constante nos sirve de plantilla para pasarle todos los datos al componente TABLE 
+  //esta constante nos sirve de plantilla para pasarle todos los datos al componente TABLE
   //en el cual mediante un map los mostraremos al usuario
   const columns = useMemo(
     () => [
@@ -52,9 +51,9 @@ function Seleccionar() {
   )
 
   return (
-    <div className="App">
+    <>
       <Tables columns={columns} data={data} refreshData={fetchData} />
-    </div>
+    </>
   )
 }
 

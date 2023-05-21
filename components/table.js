@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-key */
+
 // Table.js
 
 import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { React, useState } from 'react'
-import { useTable,useSortBy } from 'react-table'
+import { useTable, useSortBy } from 'react-table'
 import { RiEdit2Line } from 'react-icons/ri'
 import { FaTrashAlt, FaSyncAlt } from 'react-icons/fa'
 import axios from 'axios'
@@ -32,22 +33,22 @@ export default function Tables({ columns, data, refreshData }) {
     await refreshData()
   }
 
-  // Use the useTable Hook to send the columns and data to build the table
+  // Utilice useTable Hook para enviar las columnas y los datos para construir la tabla
   const {
-    getTableProps, // table props from react-table
-    getTableBodyProps, // table body props from react-table
-    headerGroups, // headerGroups, if your table has groupings
-    rows, // rows for the table based on the data passed
-    prepareRow // Prepare the row (this function needs to be called for each row before getting the row props)
-  } = useTable({
-    columns,
-    data
-  },useSortBy)
+    getTableProps, // accesorios de table de react-table
+    getTableBodyProps, // table body props de react-table
+    headerGroups, // headerGroups, para los headers de nuestra tabla
+    rows, // filas para la tabla en función de los datos pasados
+    prepareRow // Prepare la fila (esta función debe llamarse para cada fila 
+    //antes de obtener los accesorios de la fila)
+  } = useTable(
+    {
+      columns,
+      data
+    },
+    useSortBy //sorting library
+  )
 
-  /* 
-    Render the UI for your table
-    - react-table doesn't have UI, it's headless. We just need to put the react-table props from the Hooks, and it will do its magic automatically
-  */
   return (
     <Layout>
       <ErrorModal
@@ -78,7 +79,7 @@ export default function Tables({ columns, data, refreshData }) {
                     .catch(error => console.log(error))
                 }}
               >
-                SIS
+                Confirmar
               </Button>
             </Box>
           </>
@@ -106,12 +107,14 @@ export default function Tables({ columns, data, refreshData }) {
       <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map(headerGroup => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>             
+            <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
-                <span>
-                  {column.isSorted ? (column.isSortedDesc ?' 🡫':' 🡩'):''}
-                  </span></Th>
+                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted ? (column.isSortedDesc ? ' 🡫' : ' 🡩') : ''}
+                  </span>
+                </Th>
               ))}
               <Th></Th>
               <Th></Th>
@@ -123,7 +126,6 @@ export default function Tables({ columns, data, refreshData }) {
             prepareRow(row)
             return (
               <Tr key={i} {...row.getRowProps()}>
-               
                 {row.cells.map(cell => {
                   return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                 })}
@@ -146,12 +148,10 @@ export default function Tables({ columns, data, refreshData }) {
                     aria-label="Call Segun"
                     size="lg"
                     icon={<FaTrashAlt />}
-                    onClick={() =>
-                      {
-                        onDeleteOpen()
-                        setModelDelete(row.original.nombre)
-                      }
-                    }
+                    onClick={() => {
+                      onDeleteOpen()
+                      setModelDelete(row.original.nombre)
+                    }}
                   />
                 </Td>
               </Tr>

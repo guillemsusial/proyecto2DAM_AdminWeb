@@ -13,8 +13,8 @@ import axios from 'axios'
 //chakra
 import {
   Box,
-  Button,  
-  ModalOverlay,
+  Button,
+ 
   Tab,
   TabIndicator,
   TabList,
@@ -27,9 +27,8 @@ import {
 import ErrorModal from '../errorModal'
 
 function Editar({ content }) {
-  
   const [Contents] = useState(content)
- 
+
   //Creamos el estado del formulario (por verificar , es decir False)
   const [Dindentidad, setDidentidad] = useState(false)
   const [DespecificacionesMotor, setDespecificacionesMotor] = useState(false)
@@ -61,7 +60,7 @@ function Editar({ content }) {
       if (name == 'nombre') {
         event = {
           nombre: event.nombre,
-          url:event.url
+          url: event.url
         }
       } else {
         event = {
@@ -72,24 +71,14 @@ function Editar({ content }) {
     }
   }
 
-  //Esta contante es un overlay que pertenece al Modal de error de envio de formulario
-  const OverlayTwo = () => (
-    <ModalOverlay
-      bg="none"
-      backdropFilter="auto"
-      backdropInvert="80%"
-      backdropBlur="2px"
-    />
-  )
-
   //Estos 2 estados nos sirven para controlar los estados del MODAL de ERROR
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [overlay, setOverlay] = useState()
 
   // cuando enviamos el formulario corroboramos que todos los formularios
   // este verificados y enviamos el JSON a la base de datos
   const onSubmit = async () => {
-    const nombreOg = Contents.nombre;
+    //falta cerrar modal
+    const nombreOg = Contents.nombre
     if (
       Nombres &&
       Dindentidad &&
@@ -100,14 +89,17 @@ function Editar({ content }) {
       Dvelocidades
     ) {
       try {
-        const response = await axios.post('/api/updateOne', { document, nombreOg })
+        const response = await axios.post('/api/updateOne', {
+          document,
+          nombreOg
+        })
         console.log(response)
       } catch (error) {
         console.error(error)
       }
     } else {
       //error
-      setOverlay(<OverlayTwo />)
+
       onOpen()
     }
   }
@@ -131,14 +123,12 @@ function Editar({ content }) {
 
   return (
     <Layout>
-      
       {/* Modal */}
       <ErrorModal
         isOpen={isOpen}
         onClose={() => {
           onClose()
         }}
-        overlay={overlay}
       />
       {/* ------------------FORMS/TABS---------------------------- */}
       <Tabs isFitted onChange={() => {}} size="md" variant="enclosed">
@@ -224,7 +214,9 @@ function Editar({ content }) {
             {' '}
             <EspecificacionesDeLaTransmision
               verified={DespecificacionesDeLaTransmision}
-              contents={Contents ? Contents.especificaciones_de_la_transmision : null}
+              contents={
+                Contents ? Contents.especificaciones_de_la_transmision : null
+              }
               onVerified={data => {
                 setDespecificacionesDeLaTransmision(
                   !DespecificacionesDeLaTransmision

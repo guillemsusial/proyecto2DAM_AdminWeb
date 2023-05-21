@@ -111,17 +111,15 @@ function Navbar(props) {
               />
               <MenuList>
                 <NextLink href={'/'} passHref>
-                  <MenuItem as={Link}>About</MenuItem>
+                  <MenuItem as={Link}>PanelControl</MenuItem>
                 </NextLink>
-                <NextLink href={'/works'} passHref>
-                  <MenuItem as={Link}>Works</MenuItem>
+                <NextLink href={'/insert'} passHref>
+                  <MenuItem as={Link}>Insert</MenuItem>
                 </NextLink>
-                <NextLink href={'/posts'} passHref>
-                  <MenuItem as={Link}>Posts</MenuItem>
+                <NextLink href={'/ModelViewer'} passHref>
+                  <MenuItem as={Link}>ModelViewer</MenuItem>
                 </NextLink>
-                <NextLink href={'/certificates'} passHref>
-                  <MenuItem as={Link}>Certificates</MenuItem>
-                </NextLink>
+                
               </MenuList>
             </Menu>
           </Box>
