@@ -21,15 +21,8 @@ function Dimensiones({ onVerified, verified, contents }) {
   const [Contents] = useState(contents)
   const {
     register,
-    //formState: { errors },
     handleSubmit
   } = useForm()
-
-  // //console.log(errors)
-  // const onSubmit = values => {
-  //   console.log("d")
-
-  // }
 
   return (
     <Box

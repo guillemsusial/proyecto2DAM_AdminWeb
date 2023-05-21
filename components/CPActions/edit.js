@@ -9,6 +9,7 @@ import Dimensiones from '../CPanelComponets/Dimensiones'
 import EspecificacionesDeLaTransmision from '../CPanelComponets/EspecificacionesDeLaTransmision'
 import Velocidades from '../CPanelComponets/Velocidades'
 import Nombre from '../CPanelComponets/Nombre'
+import axios from 'axios'
 //chakra
 import {
   Box,
@@ -30,25 +31,25 @@ function Editar({ content }) {
   const [Contents] = useState(content)
  
   //Creamos el estado del formulario (por verificar , es decir False)
-  const [Dindentidad, setDidentidad] = useState(true)
-  const [DespecificacionesMotor, setDespecificacionesMotor] = useState(true)
-  const [Ddimensiones, setDdimensiones] = useState(true)
-  const [Dpesos, setDpesos] = useState(true)
-  const [Nombres, setNombres] = useState(true)
+  const [Dindentidad, setDidentidad] = useState(false)
+  const [DespecificacionesMotor, setDespecificacionesMotor] = useState(false)
+  const [Ddimensiones, setDdimensiones] = useState(false)
+  const [Dpesos, setDpesos] = useState(false)
+  const [Nombres, setNombres] = useState(false)
   const [
     DespecificacionesDeLaTransmision,
     setDespecificacionesDeLaTransmision
-  ] = useState(true)
-  const [Dvelocidades, setDvelocidades] = useState(true)
+  ] = useState(false)
+  const [Dvelocidades, setDvelocidades] = useState(false)
   //En este estado se guarda el JSON que mas adelante mandaremos a la BBDD
-  const [FinalJson, setFinalJson] = useState({})
+  const [document, setdocument] = useState({})
 
   // Esta constante funciona como StringBuilder , acumulando todas las
   // respuestas de los fomularios , siempre y cuando los formularios esten validados
   const data = prod => {
     let updatedValue = {}
     updatedValue = prod
-    setFinalJson(shopCart => ({
+    setdocument(shopCart => ({
       ...shopCart,
       ...updatedValue
     }))
@@ -57,8 +58,15 @@ function Editar({ content }) {
   // const para que nos envie los datos del JSON solo en caso de Veificacion
   const verify = (event, name) => {
     if (event != null || !(event.type === 'click')) {
-      event = {
-        [name]: event
+      if (name == 'nombre') {
+        event = {
+          nombre: event.nombre,
+          url:event.url
+        }
+      } else {
+        event = {
+          [name]: event
+        }
       }
       data(event)
     }
@@ -80,8 +88,10 @@ function Editar({ content }) {
 
   // cuando enviamos el formulario corroboramos que todos los formularios
   // este verificados y enviamos el JSON a la base de datos
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const nombreOg = Contents.nombre;
     if (
+      Nombres &&
       Dindentidad &&
       DespecificacionesMotor &&
       Ddimensiones &&
@@ -89,9 +99,12 @@ function Editar({ content }) {
       DespecificacionesDeLaTransmision &&
       Dvelocidades
     ) {
-      window.alert('El Form se envio correctamente')
-      //final JSON
-      console.log(FinalJson)
+      try {
+        const response = await axios.post('/api/updateOne', { document, nombreOg })
+        console.log(response)
+      } catch (error) {
+        console.error(error)
+      }
     } else {
       //error
       setOverlay(<OverlayTwo />)
@@ -133,7 +146,7 @@ function Editar({ content }) {
           mb="0.1em"
           _selected={{ fil: 'drop-shadow(2px 4px 6px black)' }}
         >
-          <SubTabs subFormState={Nombre} name={'Nombre'} />
+          <SubTabs subFormState={Nombres} name={'Nombre'} />
           <SubTabs subFormState={Dindentidad} name={'Datos Identificativos'} />
           <SubTabs
             subFormState={DespecificacionesMotor}

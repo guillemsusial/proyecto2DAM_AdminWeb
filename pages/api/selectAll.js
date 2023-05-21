@@ -7,7 +7,6 @@ app.use(cors());
 
 app.post('/api/selectAll', async (req, res) => {
   const secret = 'j4hxTuaF2IokPNQYhBoo7OBeVEk8WTEI7JeMrByQQ6LLnAPglV7AOLe3CSNZ52yq';
-  console.log(req.body);
 
   try {
     const response = await axios.post(

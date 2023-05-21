@@ -138,7 +138,6 @@ export default function Basic({ variant }) {
   // Esta constante funciona como StringBuilder , acumulando todas las
   // respuestas de los fomularios , siempre y cuando los formularios esten validados
   const data = prod => {
-    console.log(prod)
     let updatedValue = {}
     updatedValue = prod
     setdocument(shopCart => ({
@@ -150,7 +149,6 @@ export default function Basic({ variant }) {
   //una vez finalizamos el fomulario realizamos una llamada axios a una api express(error CORS)
   //y insertamos el nuevo modelo.
   const onsubmit = async () => {
-    console.log(document)
     try {
       const response = await axios.post('/api/insertOne', { document })
       console.log(response)

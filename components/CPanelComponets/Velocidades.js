@@ -78,6 +78,7 @@ export default function Velocidades({ onVerified, verified, contents }) {
                       type="number"
                       min={0}
                       placeholder="Required"
+                      step="any"
                       defaultValue={Contents ? Contents.aceleracion["0-100_km/h"] : ''}
                       // name="user_email"
                       {...register('aceleracion.0-100_km/h', {
@@ -89,21 +90,17 @@ export default function Velocidades({ onVerified, verified, contents }) {
                 <FormControl isRequired>
                   <FormLabel>Unidad de aceleracion</FormLabel>
                   <InputGroup bg={bgInput} borderRadius="lg">
-                    <InputLeftElement pointerEvents="none">
-                      <BsPencil />
-                    </InputLeftElement>
-                    <Input
-                      type="text"
-                      placeholder="Required"
+                    <Select
+                      defaultValue={Contents ? Contents.aceleracion.unidad_de_aceleracion : 'segundos'}
                       size="md"
-                      defaultValue={Contents ? Contents.aceleracion.unidad_de_aceleracion : ''}
                       {...register('aceleracion.unidad_de_aceleracion', {
                         required: true
                       })}
-                    />
+                    >
+                      <option>segundos</option>
+                    </Select>
                   </InputGroup>
                 </FormControl>
-
                 <FormControl>
                   <Button colorScheme="teal" id="submit-D" type="submit">
                     Verify Content

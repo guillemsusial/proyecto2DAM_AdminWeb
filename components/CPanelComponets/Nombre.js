@@ -22,15 +22,8 @@ function Nombre({ onVerified, verified, contents }) {
 
   const {
     register,
-    //formState: { errors },
     handleSubmit
   } = useForm()
-
-  //console.log(errors)
-  // const onSubmit = values => {
-  //  console.log(data)
-  //  event.preventDefault();
-  // }
 
   return (
     <Box

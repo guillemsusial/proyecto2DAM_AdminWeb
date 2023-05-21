@@ -71,7 +71,7 @@ export default function Tables({ columns, data, refreshData }) {
                   axios
                     .post('/api/deleteOne', { ModelDelete })
                     .then(() => {
-                      console.log('Eliminado correctamente')
+                      // Llamada Delete Axios
                       onDeleteClose()
                       handleRefresh()
                     })
@@ -135,8 +135,6 @@ export default function Tables({ columns, data, refreshData }) {
                     onClick={() => {
                       onEditOpen()
                       setAllDAta(row.original)
-                      //window.alert('await axios.post(' + '/api/data' + ', datas)')
-                      //console.log(row.original)
                     }}
                   />
                 </Td>
@@ -147,12 +145,9 @@ export default function Tables({ columns, data, refreshData }) {
                     size="lg"
                     icon={<FaTrashAlt />}
                     onClick={() =>
-                      //window.alert('await axios.post(' + '/api/data' + ', datas)')
                       {
                         onDeleteOpen()
                         setModelDelete(row.original.nombre)
-
-                        //console.log(ModelDelete)
                       }
                     }
                   />

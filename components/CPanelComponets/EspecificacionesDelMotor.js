@@ -31,13 +31,6 @@ export default function EspecificacionesDelMotor({
 
   const { register, handleSubmit } = useForm()
 
-  //console.log(errors)
-
-  // const onSubmit = values => {
-  //   console.log(values)
-  //   console.log(errors)
-  // }
-
   return (
     <Box
       borderRadius={'lg'}
@@ -255,7 +248,7 @@ export default function EspecificacionesDelMotor({
                       <BsPencil />
                     </InputLeftElement>
                     <Input
-                      type="number"
+                      type="text"
                       maxLength={2}
                       placeholder="Required"
                       size="md"
@@ -333,7 +326,7 @@ export default function EspecificacionesDelMotor({
                       <BsPencil />
                     </InputLeftElement>
                     <Input
-                      type="number"
+                      type="text"
                       maxLength={2}
                       placeholder="Required"
                       size="md"
