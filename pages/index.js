@@ -1,15 +1,13 @@
 import { Box } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
+
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+
 import Insert from '../components/CPActions/insert'
 import { BsFillDatabaseFill } from 'react-icons/bs'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
-import { FaPencilAlt } from 'react-icons/fa'
-import { MdDelete } from 'react-icons/md'
-import Editar from '../components/CPActions/edit'
 import Seleccionar from '../components/CPActions/select'
-import Delete from '../components/CPActions/delete'
 
 function Index() {
   return (

@@ -3,7 +3,7 @@
 
 import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { React, useState } from 'react'
-import { useTable } from 'react-table'
+import { useTable,useSortBy } from 'react-table'
 import { RiEdit2Line } from 'react-icons/ri'
 import { FaTrashAlt, FaSyncAlt } from 'react-icons/fa'
 import axios from 'axios'
@@ -42,7 +42,7 @@ export default function Tables({ columns, data, refreshData }) {
   } = useTable({
     columns,
     data
-  })
+  },useSortBy)
 
   /* 
     Render the UI for your table
@@ -106,10 +106,12 @@ export default function Tables({ columns, data, refreshData }) {
       <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map(headerGroup => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              <Th>Number</Th>
+            <Tr {...headerGroup.getHeaderGroupProps()}>             
               {headerGroup.headers.map(column => (
-                <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
+                <Th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
+                <span>
+                  {column.isSorted ? (column.isSortedDesc ?' 🡫':' 🡩'):''}
+                  </span></Th>
               ))}
               <Th></Th>
               <Th></Th>
@@ -121,7 +123,7 @@ export default function Tables({ columns, data, refreshData }) {
             prepareRow(row)
             return (
               <Tr key={i} {...row.getRowProps()}>
-                <Td>{i + 1}</Td>
+               
                 {row.cells.map(cell => {
                   return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                 })}
