@@ -1,50 +1,92 @@
-import { Box } from '@chakra-ui/react'
-import Layout from '../components/layouts/article'
+import { useState } from 'react'
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Stack,
+  Link,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue
+} from '@chakra-ui/react'
+import axios from 'axios'
 
-import React from 'react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+export default function Index() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-import Insert from '../components/CPActions/insert'
-import { BsFillDatabaseFill } from 'react-icons/bs'
-import { AiOutlinePlusCircle } from 'react-icons/ai'
-import Seleccionar from '../components/CPActions/select'
+  const handleSubmit = async () => {
+    try {
+      const login = await axios.post('/api/login/checkUser', { email, password })
+      if(login.data) {
+        console.log("Inicio de sesión correcto")
+        window.location.href = '/Home'
+      }else{
+        //FALTA: mensaje error
+        console.log("Inicio de sesión incorrecto")
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-function Index() {
   return (
-    <Layout>
-      <Box mt={50}>
-        <Tabs isFitted variant="enclosed" colorScheme="green">
-          <TabList>
-            <Tab _selected={{ color: 'white', bg: 'blue.500' }}>
-              <BsFillDatabaseFill />
-            </Tab>
-            <Tab _selected={{ color: 'white', bg: 'green.500' }}>
-              <AiOutlinePlusCircle />
-            </Tab>
-            {/* <Tab _selected={{ color: 'white', bg: 'yellow.500' }}>
-              <FaPencilAlt />
-            </Tab>
-            <Tab _selected={{ color: 'white', bg: 'red.500' }}>
-              <MdDelete />
-            </Tab> */}
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <Seleccionar />
-            </TabPanel>
-            <TabPanel>
-              <Insert />
-            </TabPanel>
-            {/* <TabPanel>
-              <Editar />
-            </TabPanel>
-            <TabPanel>
-              <Delete />
-            </TabPanel> */}
-          </TabPanels>
-        </Tabs>
-      </Box>
-    </Layout>
+    <Flex minH={'50vh'} align={'center'} justify={'center'}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            to enjoy all of our cool{' '}
+            <Link color={'blue.400'}>features</Link> ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}
+        >
+          <Stack spacing={4} as="form">
+            <FormControl id="email">
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormControl>
+            <Stack spacing={10}>
+              <Stack
+                direction={{ base: 'column', sm: 'row' }}
+                align={'start'}
+                justify={'space-between'}
+              >
+                <Checkbox>Remember me</Checkbox>
+              </Stack>
+              <Button
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{ bg: 'blue.500' }}
+                onClick={handleSubmit}
+              >
+                Sign in
+              </Button>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   )
 }
-export default Index
