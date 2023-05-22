@@ -12,7 +12,7 @@ function Main({ children, router }) {
         />
         <title>Panel Admin</title>
       </Head>
-      <Navbar path={router.asPath} />
+      {router.asPath == '/' ? '' : <Navbar path={router.asPath} />}
 
       <Container maxW="container.xl" pt={14}>
         {children}
