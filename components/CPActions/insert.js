@@ -10,8 +10,7 @@ import {
   Box,
   Button,
   Flex,
-  Heading,
-  Text,
+  Heading,  
   useColorModeValue,
   useDisclosure
 } from '@chakra-ui/react'
@@ -24,6 +23,7 @@ import Velocidades from '../CPanelComponets/Velocidades'
 import ErrorModal from '../errorModal'
 import axios from 'axios'
 import Nombre from '../CPanelComponets/Nombre'
+import { errorVerify } from '../modalErrorlibrary'
 
 //modal
 
@@ -163,7 +163,7 @@ export default function Basic({ variant }) {
       if (name == 'nombre') {
         event = {
           nombre: event.nombre,
-          url:event.url
+          url: event.url
         }
       } else {
         event = {
@@ -183,28 +183,7 @@ export default function Basic({ variant }) {
           onClose()
         }}
         //falta un diccionario de errores
-        text={
-          <>
-            <Text>
-              Porfavor Valide todos los datos antes de ir al siguiente
-              formulario:
-            </Text>
-            <br />
-            <Text>
-              Si no esta seguro de como validar los datos , al final del
-              formulario encontrara un boton parecido a este:
-            </Text>
-            <Box align="center" m={10}>
-              <Button colorScheme="teal" id="submit-D" type="submit">
-                Verify Content
-              </Button>
-            </Box>
-            <Text>
-              Una vez presionado este le dira que es lo que le falta por
-              validar, gracias.
-            </Text>
-          </>
-        }
+        text={errorVerify}
       />
       <Steps variant={variant} colorScheme="blue" activeStep={activeStep}>
         {steps.map(({ label, content }) => (

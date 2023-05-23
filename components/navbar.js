@@ -21,7 +21,6 @@ import ModelViewer from '../pages/ModelViewer'
 import Home from '../pages/Home'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-
 function LinkItem({ href, path, children }) {
   const active = path === href
   const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
@@ -43,7 +42,7 @@ function LinkItem({ href, path, children }) {
 function Navbar(props) {
   const nextRouter = useRouter()
   const { path } = props
-
+  
   return (
     <Box
       position={'fixed'}
@@ -85,8 +84,7 @@ function Navbar(props) {
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, nmd: 0 }}
-        >
-          <LinkItem href={'/insert'} path={path}></LinkItem>
+        />
           <LinkItem href={'/Home'} path={path}>
             Home
           </LinkItem>
@@ -102,12 +100,7 @@ function Navbar(props) {
           {/* <LinkItem href={'/posts'} path={path}>
             Posts
           </LinkItem>
-          {/* <LinkItem href={'/works'} path={path}>
-            Works
-          </LinkItem>
-          <LinkItem href={'/contact'} path={path}>
-            Contact
-          </LinkItem> */}
+       
         </Stack>
         {/* Crearemos un menu a la derecha para cuando el width sea muy pequeño para mostrar los menus,
                 nos desapareceran los items del nav y aparecera este menu */}
@@ -121,9 +114,9 @@ function Navbar(props) {
                 aria-label="Options"
               />
               <MenuList>
-                <NextLink href={'/'} passHref>
+                {/* <NextLink href={'/'} passHref>
                   <MenuItem as={Link}>PanelControl</MenuItem>
-                </NextLink>
+                </NextLink> */}
                 <NextLink href={'/Home'} passHref>
                   <MenuItem as={Link}>Insert</MenuItem>
                 </NextLink>
