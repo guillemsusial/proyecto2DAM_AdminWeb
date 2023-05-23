@@ -17,7 +17,7 @@ import {
   Button
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import ModelViewer from '../pages/ModelViewer'
+import ModelViewer from '../pages/ModelViewer.old'
 import Home from '../pages/Home'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
