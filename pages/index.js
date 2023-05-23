@@ -14,17 +14,28 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import axios from 'axios'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 export default function Index() {
+  const router = useRouter()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState('')
 
   const handleSubmit = async () => {
     try {
       const login = await axios.post('/api/login/checkUser', { email, password })
       if(login.data) {
         console.log("Inicio de sesión correcto")
-        window.location.href = '/Home'
+        if(rememberMe){
+          Cookies.set("loggedIn", true, {expires: 400 })
+          router.push('/Home')
+        }else{
+          Cookies.set("loggedIn", true, {expires: 1 })
+          router.push('/Home')
+        }
       }else{
         //FALTA: mensaje error
         console.log("Inicio de sesión incorrecto")
@@ -69,7 +80,12 @@ export default function Index() {
                 align={'start'}
                 justify={'space-between'}
               >
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox
+                  isChecked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                >
+                Remember me
+                </Checkbox>
               </Stack>
               <Button
                 bg={'blue.400'}

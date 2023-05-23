@@ -13,11 +13,14 @@ import {
   MenuButton,
   IconButton,
   useColorModeValue,
-  Text
+  Text,
+  Button
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ModelViewer from '../pages/ModelViewer'
 import Home from '../pages/Home'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 function LinkItem({ href, path, children }) {
   const active = path === href
@@ -38,6 +41,7 @@ function LinkItem({ href, path, children }) {
 }
 
 function Navbar(props) {
+  const nextRouter = useRouter()
   const { path } = props
 
   return (
@@ -83,12 +87,18 @@ function Navbar(props) {
           mt={{ base: 4, nmd: 0 }}
         >
           <LinkItem href={'/insert'} path={path}></LinkItem>
-          <LinkItem href={'/ModelViewer'} path={path}>
-            ModelViewer
-          </LinkItem>
           <LinkItem href={'/Home'} path={path}>
             Home
           </LinkItem>
+          <LinkItem href={'/ModelViewer'} path={path}>
+            ModelViewer
+          </LinkItem>
+          <Button onClick={() => {
+            Cookies.remove("loggedIn")
+            nextRouter.push('/')
+          }}>
+            Cerrar Sesión
+          </Button>
           {/* <LinkItem href={'/posts'} path={path}>
             Posts
           </LinkItem>
