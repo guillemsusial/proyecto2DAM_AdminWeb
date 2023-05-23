@@ -25,7 +25,8 @@ app.post('/api/login/checkUser', async (req, res) => {
         email: username
       },
       projection:{
-          password: 1
+          password: 1,
+          admin: 1
       }
     };
 
@@ -45,8 +46,10 @@ app.post('/api/login/checkUser', async (req, res) => {
 
       if (response.data.documents.length > 0) {
         const hash = response.data.documents[0].password;
+        const admin = response.data.documents[0].admin;
+        console.log(admin)
         const result = bcrypt.compareSync(password, hash);
-        if(result){
+        if(result && admin){
           res.json(true)
         }else{
           res.json(false)
