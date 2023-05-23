@@ -6,14 +6,15 @@ import {
   FormLabel,
   Input,
   Checkbox,
-  Stack, 
+  Stack,
   Button,
-  Heading,  
+  Heading,
   useColorModeValue
 } from '@chakra-ui/react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+
 
 export default function Index() {
   const router = useRouter()
@@ -24,17 +25,20 @@ export default function Index() {
 
   const handleSubmit = async () => {
     try {
-      const login = await axios.post('/api/login/checkUser', { email, password })
-      if(login.data) {
-        console.log("Inicio de sesión correcto")
-        if(rememberMe){
-          Cookies.set("loggedIn", true, {expires: 400 })
+      const login = await axios.post('/api/login/checkUser', {
+        email,
+        password
+      })
+      if (login.data) {
+        console.log('Inicio de sesión correcto')
+        if (rememberMe) {
+          Cookies.set('loggedIn', true, { expires: 400 })
           router.push('/Home')
-        }else{
-          Cookies.set("loggedIn", true, {expires: 1 })
+        } else {
+          Cookies.set('loggedIn', true, { expires: 1 })
           router.push('/Home')
         }
-      }else{
+      } else {
         //FALTA: mensaje error
         console.log('Inicio de sesión incorrecto')
       }
@@ -80,9 +84,9 @@ export default function Index() {
               >
                 <Checkbox
                   isChecked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
+                  onChange={e => setRememberMe(e.target.checked)}
                 >
-                Remember me
+                  Remember me
                 </Checkbox>
               </Stack>
               <Button
@@ -97,6 +101,7 @@ export default function Index() {
           </Stack>
         </Box>
       </Stack>
+     
     </Flex>
   )
 }
