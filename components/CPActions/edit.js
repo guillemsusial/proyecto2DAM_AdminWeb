@@ -19,12 +19,12 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  Tabs,
-  Text,
+  Tabs,  
   useDisclosure
 } from '@chakra-ui/react'
 //modal
 import ErrorModal from '../errorModal'
+import { errorVerify } from '../modalErrorlibrary'
 
 function Editar({ content }) {
   const [Contents] = useState(content)
@@ -126,27 +126,8 @@ function Editar({ content }) {
       {/* Modal */}
       <ErrorModal
         isOpen={isOpen}
-        text={
-          <>
-            <Text>
-              Porfavor Valide todos los datos antes de ir al siguiente
-              formulario:
-            </Text>
-            <br />
-            <Text>
-              Si no esta seguro de como validar los datos , al final del
-              formulario encontrara un boton parecido a este:
-            </Text>
-            <Box align="center" m={10}>
-              <Button colorScheme="teal" id="submit-D" type="submit">
-                Verify Content
-              </Button>
-            </Box>
-            <Text>
-              Una vez presionado este le dira que es lo que le falta por
-              validar, gracias.
-            </Text>
-          </>
+        text={errorVerify
+         
         }
         onClose={() => {
           onClose()

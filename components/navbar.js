@@ -16,8 +16,6 @@ import {
   Text
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import ModelViewer from '../pages/ModelViewer'
-import Home from '../pages/Home'
 
 function LinkItem({ href, path, children }) {
   const active = path === href
@@ -39,7 +37,7 @@ function LinkItem({ href, path, children }) {
 
 function Navbar(props) {
   const { path } = props
-
+  
   return (
     <Box
       position={'fixed'}
@@ -82,22 +80,13 @@ function Navbar(props) {
           flexGrow={1}
           mt={{ base: 4, nmd: 0 }}
         >
-          <LinkItem href={'/insert'} path={path}></LinkItem>
-          <LinkItem href={'/ModelViewer'} path={path}>
-            ModelViewer
-          </LinkItem>
           <LinkItem href={'/Home'} path={path}>
             Home
           </LinkItem>
-          {/* <LinkItem href={'/posts'} path={path}>
-            Posts
+          <LinkItem href={'/ModelViewer'} path={path}>
+            ModelViewer
           </LinkItem>
-          {/* <LinkItem href={'/works'} path={path}>
-            Works
-          </LinkItem>
-          <LinkItem href={'/contact'} path={path}>
-            Contact
-          </LinkItem> */}
+       
         </Stack>
         {/* Crearemos un menu a la derecha para cuando el width sea muy pequeño para mostrar los menus,
                 nos desapareceran los items del nav y aparecera este menu */}
@@ -111,9 +100,9 @@ function Navbar(props) {
                 aria-label="Options"
               />
               <MenuList>
-                <NextLink href={'/'} passHref>
+                {/* <NextLink href={'/'} passHref>
                   <MenuItem as={Link}>PanelControl</MenuItem>
-                </NextLink>
+                </NextLink> */}
                 <NextLink href={'/Home'} passHref>
                   <MenuItem as={Link}>Insert</MenuItem>
                 </NextLink>

@@ -6,11 +6,9 @@ import {
   FormLabel,
   Input,
   Checkbox,
-  Stack,
-  Link,
+  Stack, 
   Button,
-  Heading,
-  Text,
+  Heading,  
   useColorModeValue
 } from '@chakra-ui/react'
 import axios from 'axios'
@@ -21,16 +19,19 @@ export default function Index() {
 
   const handleSubmit = async () => {
     try {
-      const login = await axios.post('/api/login/checkUser', { email, password })
-      if(login.data) {
-        console.log("Inicio de sesión correcto")
+      const login = await axios.post('/api/login/checkUser', {
+        email,
+        password
+      })
+      if (login.data) {
+        console.log('Inicio de sesión correcto')
         window.location.href = '/Home'
-      }else{
+      } else {
         //FALTA: mensaje error
-        console.log("Inicio de sesión incorrecto")
+        console.log('Inicio de sesión incorrecto')
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
@@ -38,7 +39,7 @@ export default function Index() {
     <Flex minH={'50vh'} align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>         
+          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
         </Stack>
         <Box
           rounded={'lg'}
@@ -52,7 +53,7 @@ export default function Index() {
               <Input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
               />
             </FormControl>
             <FormControl id="password">
@@ -60,7 +61,7 @@ export default function Index() {
               <Input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
             </FormControl>
             <Stack spacing={10}>

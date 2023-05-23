@@ -70,7 +70,7 @@ const ModelViewer = () => {
     //------------------------Modelo------------------------
     let model
     //cargamos el modelo 3D del Modelo
-    loader.load('/3DModels/bmw_m3_e46.glb', gltf => {
+    loader.load('/3DModels/toyota_gt_apex_trueno_ae86_stock_jdm.glb', gltf => {
       model = gltf.scene
 
       // Obtiene el centro del modelo
