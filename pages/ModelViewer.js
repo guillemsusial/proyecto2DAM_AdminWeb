@@ -1,9 +1,13 @@
-import { Box, Button, Link, Text } from '@chakra-ui/react'
+import { Box, Link } from '@chakra-ui/react'
 import Script from 'next/script'
-import { useEffect } from 'react'
-import { useRef } from 'react'
+import { useRouter } from 'next/router'
 
 export default function ModelViewer() {
+  const nextRouter = useRouter()
+  const { modelName } = nextRouter.query;
+  const model = "/3DModels/"+modelName+".glb"
+  console.log(model)
+  
   return (
     <Box w={'100%'}>
       <Link
@@ -16,7 +20,7 @@ export default function ModelViewer() {
       <model-viewer
         style={{ height: '500px', width: '100%' }}
         alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
-        src="/3DModels/m3_white.glb"
+        src={model}
         ar
         ar-modes="scene-viewer webxr quick-look"
         camera-controls

@@ -12,8 +12,11 @@ import {
   MenuList,
   MenuButton,
   IconButton,
-  useColorModeValue
+  useColorModeValue,
+  Button
 } from '@chakra-ui/react'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 function LinkItem({ href, path, children }) {
   const active = path === href
@@ -34,6 +37,7 @@ function LinkItem({ href, path, children }) {
 }
 
 function Navbar(props) {
+  const nextRouter = useRouter()
   const { path } = props
 
   return (
@@ -75,7 +79,13 @@ function Navbar(props) {
           <LinkItem href={'/ModelViewer'} path={path}>
             ModelViewer
           </LinkItem>
-          
+          <Button onClick={() => {
+            if(Cookies.get("loggedIn"))
+              Cookies.remove("loggedIn")
+              nextRouter.push('/')
+          }}>
+            Cerrar Sesión
+          </Button>
         </Stack>
         {/* Crearemos un menu a la derecha para cuando el width sea muy pequeño para mostrar los menus,
                 nos desapareceran los items del nav y aparecera este menu */}
@@ -89,15 +99,22 @@ function Navbar(props) {
                 aria-label="Options"
               />
               <MenuList>
-                <NextLink href={'/'} passHref>
+                {/* <NextLink href={'/'} passHref>
                   <MenuItem as={Link}>SingIn</MenuItem>
-                </NextLink>
+                </NextLink> */}
                 <NextLink href={'/Home'} passHref>
                   <MenuItem as={Link}>Home</MenuItem>
                 </NextLink>
                 <NextLink href={'/ModelViewer'} passHref>
                   <MenuItem as={Link}>ModelViewer</MenuItem>
-                </NextLink>              
+                </NextLink>
+                <br/>
+                <Button onClick={() => {
+                  Cookies.remove("loggedIn")
+                  nextRouter.push('/')
+                }}>
+                  Cerrar Sesión
+                </Button>
               </MenuList>
             </Menu>
           </Box>
