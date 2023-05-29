@@ -19,10 +19,7 @@ import { BsPencil } from 'react-icons/bs'
 function Dimensiones({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
   const [Contents] = useState(contents)
-  const {
-    register,
-    handleSubmit
-  } = useForm()
+  const { register, handleSubmit } = useForm()
 
   return (
     <Box
@@ -53,7 +50,11 @@ function Dimensiones({ onVerified, verified, contents }) {
                       })}
                     >
                       <option>mm</option>
-                      <option>{Contents.unidad_de_distancia}</option>
+                      {Contents ? (
+                        <option>{Contents.unidad_de_distancia}</option>
+                      ) : (
+                        ''
+                      )}
                     </Select>
                   </InputGroup>
                 </FormControl>

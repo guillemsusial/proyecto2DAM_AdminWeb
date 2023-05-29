@@ -270,7 +270,9 @@ export default function EspecificacionesDelMotor({
                       type="number"
                       maxLength={2}
                       placeholder="Required"
+                      step={'0.1'}
                       size="md"
+                      // defaultValue={Contents['relacion_peso/potencia']}
                       defaultValue={
                         Contents
                           ? Contents['relacion_peso/potencia'].slice(0, -6)

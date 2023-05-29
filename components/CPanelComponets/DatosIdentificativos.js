@@ -20,7 +20,7 @@ import ReEditar from '../ReEditar'
 function DatosIdentificativos({ onVerified, verified, contents }) {
   const bgInput = useColorModeValue('whiteAlpha.900', 'whiteAlpha.200')
   const [Contents] = useState(contents)
-  
+
   const {
     register,
     //formState: { errors },
@@ -56,7 +56,11 @@ function DatosIdentificativos({ onVerified, verified, contents }) {
                     >
                       <option>United Arab Emirates</option>
                       <option>Nigeria</option>
-                      <option>{Contents.pais_de_origen}</option>
+                      {Contents ? (
+                        <option>{Contents.pais_de_origen}</option>
+                      ) : (
+                        ''
+                      )}
                     </Select>
                   </InputGroup>
                 </FormControl>
@@ -145,7 +149,11 @@ function DatosIdentificativos({ onVerified, verified, contents }) {
                     <Input
                       errorBorderColor="red.300"
                       type="number"
-                      defaultValue={Contents ? Contents.años_de_fabricacion.año_de_inicio : ''}
+                      defaultValue={
+                        Contents
+                          ? Contents.años_de_fabricacion.año_de_inicio
+                          : ''
+                      }
                       min={1900}
                       max={2050}
                       placeholder="Required"
@@ -166,7 +174,11 @@ function DatosIdentificativos({ onVerified, verified, contents }) {
                     <Input
                       errorBorderColor="red.300"
                       type="number"
-                      defaultValue={Contents ? Contents.años_de_fabricacion.año_de_finalizacion : ''}
+                      defaultValue={
+                        Contents
+                          ? Contents.años_de_fabricacion.año_de_finalizacion
+                          : ''
+                      }
                       min={1900}
                       max={2050}
                       placeholder="Required"
