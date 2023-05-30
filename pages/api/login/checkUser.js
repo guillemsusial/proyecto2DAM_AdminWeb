@@ -47,7 +47,6 @@ app.post('/api/login/checkUser', async (req, res) => {
       if (response.data.documents.length > 0) {
         const hash = response.data.documents[0].password;
         const admin = response.data.documents[0].admin;
-        console.log(admin)
         const result = bcrypt.compareSync(password, hash);
         if(result && admin){
           res.json(true)
